@@ -20,7 +20,7 @@
                             <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
                                 <div class="header-right-info">
                                     <ul class="nav navbar-nav mai-top-nav header-right-menu">
-                                        <li class="nav-item">
+                                        <li class="nav-item dropdown">
                                             <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
 
                                                     <span class="admin-name"><?php echo $this->session->userdata('nama_lengkap') ?></span>
@@ -33,7 +33,6 @@
                                                 </li>
                                             </ul>
                                         </li>
-
                                     </ul>
                                 </div>
                             </div>

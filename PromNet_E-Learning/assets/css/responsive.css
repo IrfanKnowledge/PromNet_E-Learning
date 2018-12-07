@@ -31,7 +31,7 @@
 		display: none !important;
 	}
 	.header-top-area {
-		position: sticky;
+		position: relative;
 		left: 0px;
 	}
 	.analysis-progrebar-ctn {
@@ -174,7 +174,7 @@
 		float: left !important;
 	}
 	.header-top-area {
-		position: sticky;
+		position: relative;
 		left: 0px;
 	}
 	.analysis-progrebar-ctn {
@@ -454,7 +454,7 @@
 		height: 100%;
 	}
 	.header-top-area {
-		position: sticky;
+		position: relative;
 		left: 0px;
 	}
 	.analysis-progrebar-ctn {

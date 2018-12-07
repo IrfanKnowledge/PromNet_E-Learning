@@ -1,15 +1,15 @@
 /*-----------------------------------------------------------------------------------
 
-    Template Name: Kiaalap - Kiaalap Admin Template 
+    Template Name: Kiaalap - Kiaalap Admin Template
     Description: Kiaalap Admin Template is a responsive admin template based on the famous Bootstrap framework it's easy to edit and customize by documentation.
     Author: Colorlib
     Version: 1.0
 
 -----------------------------------------------------------------------------------
-    
+
     CSS INDEX
     ===================
-	
+
     1. Common
 	2. Helper Class
 	3. All Nested Class
@@ -77,9 +77,9 @@ body {}
 @font-face {
   font-family: 'educate-icon';
   src:
-    url('fonts/educate-icon.ttf?ka5vvx') format('truetype'),
-    url('fonts/educate-icon.woff?ka5vvx') format('woff'),
-    url('fonts/educate-icon.svg?ka5vvx#educate-icon') format('svg');
+    url('assets/fonts/educate-icon.ttf?ka5vvx') format('truetype'),
+    url('assets/fonts/educate-icon.woff?ka5vvx') format('woff'),
+    url('assets/fonts/educate-icon.svg?ka5vvx#educate-icon') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -315,17 +315,17 @@ body {}
 	background:#2b2a2a;
 }
 .header-top-menu .navbar-nav>li .dropdown-menu{
-	border: 0px solid #ccc; 
+	border: 0px solid #ccc;
     border: 0px solid rgba(0,0,0,.15);
 	background-color: #303030;
     -webkit-box-shadow: 0 1px 4px rgba(0,0,0,.175);
-    box-shadow: 0 1px 4px rgba(0,0,0,.175);	
+    box-shadow: 0 1px 4px rgba(0,0,0,.175);
 }
 .header-right-info .navbar-nav>li .dropdown-menu{
-	border: 0px solid #ccc; 
+	border: 0px solid #ccc;
     border: 0px solid rgba(0,0,0,.15);
 	-webkit-box-shadow: 0 1px 4px rgba(0,0,0,.175);
-    box-shadow: 0 1px 4px rgba(0,0,0,.175);	
+    box-shadow: 0 1px 4px rgba(0,0,0,.175);
 }
 .header-top-menu .nav>li>a:focus, .header-top-menu .nav>li>a:hover, .header-top-menu .nav>li>a:active {
     text-decoration: none;
@@ -399,7 +399,7 @@ body {}
 	padding:18px 10px;
 }
 .header-right-info {
-	
+
 }
 .header-right-info ul.header-right-menu li{
 	display:inline-block;
@@ -916,7 +916,7 @@ ul.breadcome-menu li a:hover{
 }
 .rating > input:checked ~ label, .rating:not(:checked) > label:hover, .rating:not(:checked) > label:hover ~ label {
   color: #e12503;
-} 
+}
 .rating > input:checked + label:hover, .rating > input:checked ~ label:hover,
 .rating > label:hover ~ input:checked ~ label, .rating > input:checked ~ label:hover ~ label {
   color: #e12503;
@@ -1544,7 +1544,7 @@ ul#single-product-tab li{
 	background:#f7941d;
 }
 .single-pro-size span, .color-quality-details span {
-  display: inline-block; 
+  display: inline-block;
   font-weight: 300;
   height: 25px;
   line-height: 25px;
@@ -1837,7 +1837,7 @@ ul.cus-product-sl-rp li i{
 	color:#999;
 	background:#F6F8FA;
 	box-shadow: none !important;
-} 
+}
 .cus-gh-hd-pro h2{
 	font-size:20px;
 }
@@ -2019,7 +2019,7 @@ ul.two-part-sp li{
 	display:block;
 }
 .header-top-area {
-    position: sticky;
+    position: fixed;
     background: -webkit-linear-gradient(178deg, #e12503 0%, #85060c 100%);
     background: linear-gradient(178deg, #e12503 0%, #85060c 100%);
     z-index: 99;
@@ -4386,7 +4386,7 @@ div#sparklinehome canvas {
     margin: 0px 0px;
 }
 .mCS-light-1.mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar{ background-color: #006DF0; }
-.mCS-light-1.mCSB_scrollTools .mCSB_draggerRail{ background-color: #ccc; } 
+.mCS-light-1.mCSB_scrollTools .mCSB_draggerRail{ background-color: #ccc; }
 /*-----------------------
 21. Wizard CSS
 -------------------------*/

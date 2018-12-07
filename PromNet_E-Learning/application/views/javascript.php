@@ -1,11 +1,9 @@
 <script src="<?php echo base_url(); ?>assets/js/jquery.min.js"></script>
+<!-- jquery
 <script src="<?php echo base_url(); ?>assets/bootstrap-4.1.3/js/jquery-3.0.0.slim.min.js"></script>
 <script src="<?php echo base_url(); ?>assets/bootstrap-4.1.3/js/bootstrap.bundle.min.js"></script>
 <script src="<?php echo base_url(); ?>assets/bootstrap-4.1.3/js/bootstrap.min.js"></script>
 
-
-
-<!-- jquery
     ============================================ -->
 <script src="<?php echo base_url(); ?>assets/js/vendor/jquery-1.12.4.min.js"></script>
 <!-- bootstrap JS
@@ -55,4 +53,5 @@
     ============================================ -->
 <script src="<?php echo base_url(); ?>assets/js/main.js"></script>
 <!-- tawk chat JS
+<script src="<?php echo base_url(); ?>assets/js/tawk-chat.js"></script>
     ============================================ -->
