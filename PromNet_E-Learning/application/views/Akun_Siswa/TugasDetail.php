@@ -40,7 +40,7 @@
                   <?php $no = 1; foreach ($tugas_sesi_soal as $column) { ?>
                     <tr class="table-primary">
                       <td><?php echo $no; ?></td>
-                      <td><a href="#adddata"></a> <?php echo $column->soal; ?></td>
+                      <td><a href="#"></a> <?php echo $column->soal; ?></td>
                       <td><a href="<?php echo site_url('Tugas_Sesi_Soal_Siswa/Download/' . $column->file_soal) ?>"><?php echo $column->file_soal; ?></a></td>
                       <td><?php echo $column->waktu_mulai_tugas; ?></td>
                       <td><?php echo $column->waktu_deadline_tugas; ?></td>
@@ -53,7 +53,14 @@
               </table>
 
               <br><br>
-
+              <?php if (isset($status)): ?>
+                <?php if ($this->uri->segment(5) == 'status_error'): ?>
+                  <h1 align="center" class="text-danger"><?php echo $status; ?></h1>
+                <?php elseif($this->uri->segment(5) == 'status_berhasil'): ?>
+                  <h1 align="center" class="text-success"><?php echo $status; ?></h1>
+                <?php endif; ?>
+                <br>
+              <?php endif; ?>
               <table class="table table-bordered table-hover" align ="center">
                   <thead class="thead-dark">
                     <tr align="center">
@@ -84,10 +91,13 @@
                     </tbody>
                   <?php else: ?>
                     <tbody>
-                      <?php echo form_open_multipart('Tugas_Sesi_Jawaban_Siswa/do_upload/' . $this->uri->segment(3));?>
+                      <?php $no=1; echo form_open_multipart('Tugas_Sesi_Jawaban_Siswa/do_upload/' . $this->uri->segment(3) . '/' . $this->uri->segment(4));?>
                         <tr class="table-primary">
-                          <td><input type="file" name="userfile" size="20" /></td>
-                          <td><input type="submit" value="upload"/></td>
+                          <td><?php echo $no; ?></td>
+                          <td><input type="file" name="userfile" size="10">
+                              <br>
+                              <input type="submit" value="kirim">
+                          </td>
                           <td><textarea name="komentar_siswa" rows="8" cols="40"></textarea> </td>
                           <td></td>
                           <td></td>
@@ -96,7 +106,7 @@
                         </tr>
                       </form>
                     </tbody>
-                      <?php endif; ?>
+                      <?php $no++; endif; ?>
 
                 </table>
 

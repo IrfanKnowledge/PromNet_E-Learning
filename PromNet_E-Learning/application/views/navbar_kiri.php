@@ -2,8 +2,8 @@
 <div class="left-sidebar-pro">
     <nav id="sidebar" class="">
         <div class="sidebar-header">
-            <a href="<?php echo site_url('home'); ?>"><img class="main-logo" src="<?php echo base_url(); ?>assets/img/logo/logo.png" alt="" /></a>
-            <strong><a href="<?php echo site_url('home'); ?>"><img src="<?php echo base_url(); ?>assets/img/logo/logosn.png" alt="" /></a></strong>
+            <a href="<?php echo site_url('Home_Siswa'); ?>"><img class="main-logo" src="<?php echo base_url(); ?>assets/img/logo/logo.png" alt="" /></a>
+            <strong><a href="<?php echo site_url('Home_Siswa'); ?>"><img src="<?php echo base_url(); ?>assets/img/logo/logosn.png" alt="" /></a></strong>
         </div>
 
         <div class="left-custom-menu-adp-wrap comment-scrollbar">
@@ -37,7 +37,7 @@
                           class="active"
                         <?php } ?>
                       >
-                          <a class="has-arrow <?php if ($this->uri->segment(1)  == 'Siswa'){ ?> text-white bg-dark <?php } ?>" href="all-professors.html" aria-expanded="false"><span class="educate-icon educate-professor icon-wrap"></span> <span class="mini-click-non">Siswa</span></a>
+                          <a class="has-arrow <?php if ($this->uri->segment(1)  == 'Siswa'){ ?> text-white bg-dark <?php } ?>" href="all-professors.html" aria-expanded="false"><span class="educate-icon educate-student icon-wrap"></span> <span class="mini-click-non">Siswa</span></a>
                           <ul class="submenu-angle" aria-expanded="false">
                               <li><a title="All Siswa" href="<?php echo site_url('Siswa/index'); ?>" class=" <?php if ($this->uri->segment(1) == 'Siswa' && $this->uri->segment(2) == 'index'){ ?> text-white bg-primary <?php } ?>"><span class="mini-sub-pro">List Siswa</span></a></li>
                               <li><a title="Add Siswa" href="<?php echo site_url('Siswa/V_SiswaTambah'); ?>" class=" <?php if ($this->uri->segment(2) == 'V_SiswaTambah'){ ?> text-white bg-primary <?php } ?>"><span class="mini-sub-pro">Tambah Siswa</span></a></li>
@@ -45,7 +45,7 @@
                           </ul>
                       </li>
                       <li>
-                        <a class="has-arrow" href="all-professors.html" aria-expanded="false"><span class="educate-icon educate-professor icon-wrap"></span> <span class="mini-click-non">Mata Pelajaran</span></a>
+                        <a class="has-arrow" href="all-professors.html" aria-expanded="false"><span class="educate-icon educate-course icon-wrap"></span> <span class="mini-click-non">Mata Pelajaran</span></a>
                         <ul class="submenu-angle" aria-expanded="false">
                             <li><a title="All matpel" href="<?php echo site_url('C_matpel/index'); ?>" class=" <?php if ($this->uri->segment(2) == 'index'){ ?> text-white bg-primary <?php } ?>"><span class="mini-sub-pro">List Mata Pelajaran</span></a></li>
                             <li><a title="Add matpel" href="<?php echo site_url('C_matpel/V_matpelTambah'); ?>" class=" <?php if ($this->uri->segment(2) == 'V_matpelTambah'){ ?> text-white bg-primary <?php } ?>"><span class="mini-sub-pro">Tambah Mata Pelajaran</span></a></li>
@@ -53,7 +53,7 @@
                         </ul>
                     </li>
                       <li>
-                          <a class="has-arrow" href="all-professors.html" aria-expanded="false"><span class="educate-icon educate-professor icon-wrap"></span> <span class="mini-click-non">Nilai Akhir</span></a>
+                          <a class="has-arrow" href="all-professors.html" aria-expanded="false"><span class="educate-icon educate-data-table icon-wrap"></span> <span class="mini-click-non">Nilai Akhir</span></a>
                           <ul class="submenu-angle" aria-expanded="false">
                               <li><a title="All Professors" href="all-professors.html"><span class="mini-sub-pro">List Nilai Akhir</span></a></li>
                           </ul>

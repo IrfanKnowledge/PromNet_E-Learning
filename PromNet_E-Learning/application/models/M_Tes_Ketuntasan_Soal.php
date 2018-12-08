@@ -17,5 +17,4 @@ class M_Tes_Ketuntasan_Soal extends CI_Model {
 
     return $this->db->get();
   }
-
 }

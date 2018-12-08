@@ -43,7 +43,7 @@
                       <td><?php echo $no; ?></td>
                       <td><?php echo $column->Pertanyaan; ?></td>
                       <input type="hidden" name="id<?php echo $column->id; ?>" value="<?php echo $column->id; ?>">
-                      
+
                       <td><input name="pilihan<?php echo $column->id;?>" type="radio"
                         <?php echo $column->pilihan1?> value="Benar"><br>
 

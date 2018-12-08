@@ -38,7 +38,12 @@
                 </tr>
               </thead>
               <tbody>
-                <?php $no = 1; foreach ($sesi_pembelajaran as $column) { ?>
+                <?php
+                  $no = 1;
+                  if ($sesi_pembelajaran == -1) {
+                    echo "<tr class='table-primary'><td colspan='7' align='center'><h3>Sesi_Pembelajaran, tidak tersedia.</h3></td></tr>";
+                  }else{
+                    foreach ($sesi_pembelajaran as $column) { ?>
                   <tr class="table-primary">
                     <td><?php echo $no; ?></td>
                     <td><?php echo $column->id_mapel; ?></td>
@@ -49,7 +54,8 @@
                     <td><?php echo $column->Konten3; ?></td>
                   </tr>
                 <?php
-                  $no++;
+                    $no++;
+                    }
                   }
                 ?>
               </tbody>

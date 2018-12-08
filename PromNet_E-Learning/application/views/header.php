@@ -50,16 +50,16 @@
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
               <li <?php if($this->uri->segment(1) == "Sesi_Pembelajaran_Siswa"){ ?> class="nav-item active" <?php }else{ ?> class="nav-item" <?php } ?>>
-                <a class="nav-link" href=<?php echo site_url('Sesi_Pembelajaran_Siswa/index/'. $this->session->id_mapel); ?> >Sesi Pembelajaran<span class="sr-only">(current)</span></a>
+                <a class="nav-link" href=<?php echo site_url('Sesi_Pembelajaran_Siswa/index/'. $this->uri->segment(3)); ?> >Sesi Pembelajaran<span class="sr-only">(current)</span></a>
               </li>
               <li <?php if($this->uri->segment(1) == "Tugas_Sesi_Soal_Siswa"){ ?> class="nav-item active" <?php }else{ ?> class="nav-item" <?php } ?>>
-                <a class="nav-link" href="<?php echo site_url('Tugas_Sesi_Soal_Siswa') ?>">Tugas</a>
+                <a class="nav-link" href="<?php echo site_url('Tugas_Sesi_Soal_Siswa/index/'. $this->uri->segment(3)) ?>">Tugas</a>
               </li>
               <li <?php if($this->uri->segment(1) == "Tes_Ketuntasan_Siswa"){ ?> class="nav-item active" <?php }else{ ?> class="nav-item" <?php } ?>>
-                <a class="nav-link" href="<?php echo site_url('Tes_Ketuntasan_Siswa') ?>">Tes Ketuntasan</a>
+                <a class="nav-link" href="<?php echo site_url('Tes_Ketuntasan_Siswa/index/'. $this->uri->segment(3)) ?>">Tes Ketuntasan</a>
               </li>
               <li>
-                <a class="nav-link" href="<?php echo site_url('Tes_Pengayaan_Siswa') ?>">Tes Pengayaan</a>
+                <a class="nav-link" href="<?php echo site_url('Tes_Pengayaan_Siswa/index/'. $this->uri->segment(3)) ?>">Tes Pengayaan</a>
               </li>
               <!--
               <li class="nav-item dropdown">

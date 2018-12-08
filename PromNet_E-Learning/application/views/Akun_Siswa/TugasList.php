@@ -39,11 +39,17 @@
                 <tbody>
 
 
-                  <?php $no = 1; foreach ($tugas_sesi_soal as $column) { ?>
+                  <?php
+                    $no = 1;
+                    if ($tugas_sesi_soal == -1) {
+                      echo "<tr class='table-primary'><td colspan='5' align='center'><h3>Tugas, tidak tersedia.</h3></td></tr>";
+                    }else{
+                      foreach ($tugas_sesi_soal as $column) {
+                  ?>
                     <tr class="table-primary">
                   <form class="" action="<?php  echo site_url('Tugas_Sesi_Soal_Siswa/Ngetest'); ?>" method="post">
                       <td><?php echo $no; ?></td>
-                      <td><a href="<?php echo site_url('Tugas_Sesi_Jawaban_Siswa/index/' . $column->id) ?>"><?php echo $column->soal; ?></a></td>
+                      <td><a href="<?php echo site_url('Tugas_Sesi_Jawaban_Siswa/index/' . $this->uri->segment(3) . '/' . $column->id) ?>"><?php echo $column->soal; ?></a></td>
                       <td><a href="<?php echo site_url('Tugas_Sesi_Soal_Siswa/Download/' . $column->file_soal) ?>"><?php echo $column->file_soal; ?></a></td>
                       <td><?php echo $column->waktu_mulai_tugas; ?></td>
                       <td><?php echo $column->waktu_deadline_tugas; ?></td>
@@ -52,6 +58,7 @@
 
                   <?php
                     $no++;
+                      }
                     }
                   ?>
                 </tbody>

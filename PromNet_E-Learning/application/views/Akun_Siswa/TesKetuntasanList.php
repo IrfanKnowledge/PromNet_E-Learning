@@ -39,7 +39,12 @@
                 </tr>
               </thead>
               <tbody>
-                <?php $no = 1; foreach ($tes_ketuntasan as $column) { ?>
+                <?php
+                  $no = 1;
+                  if ($tes_ketuntasan == -1) {
+                    echo "<tr class='table-primary'><td colspan='7' align='center'><h3>Tes Ketuntasan, tidak tersedia.</h3></td></tr>";
+                  }else{
+                    foreach ($tes_ketuntasan as $column) { ?>
                   <tr class="table-primary">
                     <td><?php echo $no; ?></td>
                     <td><?php echo $column->Judul; ?></td>
@@ -53,6 +58,7 @@
                   </tr>
                 <?php
                   $no++;
+                    }
                   }
                 ?>
               </tbody>

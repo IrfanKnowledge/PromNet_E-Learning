@@ -9,23 +9,23 @@ class M_Sesi_Pembelajaran extends CI_Model {
     return  $this->db->get();
   }
 
-  public function getById($id = -1)
+  public function getById($id_mapel = -1)
   {
     $this->db->select('*');
     $this->db->from('sesi_pembelajaran');
-    $this->db->where('id_mapel', $id);
+    $this->db->where('id_mapel', $id_mapel);
     return  $this->db->get();
   }
 
-  public function Mata_Pelajaran($id = -1)
+  public function Mata_Pelajaran($id_mapel = -1)
   {
     $this->db->select('Nama_Mapel');
     $this->db->from('mata_pelajaran');
-    $this->db->where('kd_Mapel', $id);
+    $this->db->where('kd_Mapel', $id_mapel);
     return $this->db->get();
   }
 
-      function selectById($id_mapel){
+  function selectById($id_mapel){
     $this->db->select('*');
     $this->db->from('sesi_pembelajaran');
     $this->db->where('id_mapel',$id_mapel);

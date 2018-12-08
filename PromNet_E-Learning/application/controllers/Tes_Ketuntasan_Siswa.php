@@ -3,14 +3,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Tes_Ketuntasan_Siswa extends CI_Controller {
 
-	public function index($id = -1)
+	public function index($id_mapel = -1)
 	{
 		if($this->session->userdata('user') != 'siswa') {
 			redirect('login');
 		}else{
+			if ($id_mapel == -1) {
+				die("<h1>Maaf, tidak ada Mata Pelajaran yang dipilih. Silahkan memilih Mata Pelajaran.</H1>");
+			}
 			$this->load->model('M_Tes_Ketuntasan');
-			$data['tes_ketuntasan'] = $this->M_Tes_Ketuntasan->getAll()->result();;
+			$data['tes_ketuntasan'] = $this->M_Tes_Ketuntasan->getById($id_mapel);
 
+			//print_r($data);
 			$this->load->view('Akun_Siswa/TesKetuntasanList', $data);
 		}
 	}
