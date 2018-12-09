@@ -49,7 +49,7 @@
                     <td><?php echo $column->id_mapel; ?></td>
                     <td><?php echo $column->Topik; ?></td>
                     <td><?php echo $column->Uraian; ?></td>
-                    <td><a href="<?php echo site_url('Sesi_Pembelajaran_Siswa/Download/'. $column->Konten1) ?>"><?php echo $column->Konten1; ?></a></td>
+                    <td><a href="<?php echo site_url('Sesi_Pembelajaran_Siswa/Download/'. $column->Konten1) ?>" class="text-danger"><?php echo $column->Konten1; ?></a></td>
                     <td><?php echo $column->Konten2; ?></td>
                     <td><?php echo $column->Konten3; ?></td>
                   </tr>

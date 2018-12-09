@@ -19,7 +19,7 @@ class Tes_Ketuntasan_Siswa extends CI_Controller {
 		}
 	}
 
-	public function mulai_soal_ketuntasan($id_Tes)
+	public function mulai_soal_ketuntasan($id_mapel = -1, $id_Tes = -1)
   {
     if($this->session->userdata('user') != 'siswa') {
 			redirect('login');

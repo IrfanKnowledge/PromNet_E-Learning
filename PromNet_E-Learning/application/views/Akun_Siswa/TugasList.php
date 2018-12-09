@@ -24,6 +24,7 @@
       <div class="container-fluid">
           <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
               <h1 align ="center"><?php echo $this->session->mata_pelajaran['Nama_Mapel']; ?></h1>
 
             <table class="table table-bordered table-hover" align ="center">
@@ -49,8 +50,8 @@
                     <tr class="table-primary">
                   <form class="" action="<?php  echo site_url('Tugas_Sesi_Soal_Siswa/Ngetest'); ?>" method="post">
                       <td><?php echo $no; ?></td>
-                      <td><a href="<?php echo site_url('Tugas_Sesi_Jawaban_Siswa/index/' . $this->uri->segment(3) . '/' . $column->id) ?>"><?php echo $column->soal; ?></a></td>
-                      <td><a href="<?php echo site_url('Tugas_Sesi_Soal_Siswa/Download/' . $column->file_soal) ?>"><?php echo $column->file_soal; ?></a></td>
+                      <td><a href="<?php echo site_url('Tugas_Sesi_Jawaban_Siswa/index/' . $this->uri->segment(3) . '/' . $column->sesi_ke) ?>" class="text-danger"><?php echo $column->soal; ?></a></td>
+                      <td><a href="<?php echo site_url('Tugas_Sesi_Soal_Siswa/Download/' . $column->file_soal) ?>" class="text-danger"><?php echo $column->file_soal; ?></a></td>
                       <td><?php echo $column->waktu_mulai_tugas; ?></td>
                       <td><?php echo $column->waktu_deadline_tugas; ?></td>
                     </tr>

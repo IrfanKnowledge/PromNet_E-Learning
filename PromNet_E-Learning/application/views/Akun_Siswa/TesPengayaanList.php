@@ -53,10 +53,9 @@
                     <td><?php echo $column->Waktu_Mulai_tes; ?></td>
                     <td><?php echo $column->Waktu_Berakhir_tes; ?></td>
                     <th>
-                        <a href="<?php echo site_url('Tes_Pengayaan_Siswa/mulai_soal_pengayaan/'.($column->id_Sesi)); ?>">Mulai</a>
+                        <a href="<?php echo site_url('Tes_Pengayaan_Siswa/mulai_soal_pengayaan/'. $this->uri->segment(3) . '/' . $column->id); ?>" class="text-danger">Mulai</a>
                     </th>
                   </tr>
-
 
                 <?php
                     $no++;

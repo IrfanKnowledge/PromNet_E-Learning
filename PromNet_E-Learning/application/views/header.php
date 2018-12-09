@@ -58,7 +58,7 @@
               <li <?php if($this->uri->segment(1) == "Tes_Ketuntasan_Siswa"){ ?> class="nav-item active" <?php }else{ ?> class="nav-item" <?php } ?>>
                 <a class="nav-link" href="<?php echo site_url('Tes_Ketuntasan_Siswa/index/'. $this->uri->segment(3)) ?>">Tes Ketuntasan</a>
               </li>
-              <li>
+              <li <?php if($this->uri->segment(1) == "Tes_Pengayaan_Siswa"){ ?> class="nav-item active" <?php }else{ ?> class="nav-item" <?php } ?>>
                 <a class="nav-link" href="<?php echo site_url('Tes_Pengayaan_Siswa/index/'. $this->uri->segment(3)) ?>">Tes Pengayaan</a>
               </li>
               <!--
