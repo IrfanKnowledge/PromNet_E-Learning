@@ -10,6 +10,7 @@ class Sesi_Pembelajaran_Siswa extends CI_Controller {
 		}else{
 			$this->load->model('M_Sesi_Pembelajaran');
 			$data['sesi_pembelajaran'] = $this->M_Sesi_Pembelajaran->getById($id_mapel)->result();
+		
 			if (empty($data['sesi_pembelajaran'])) {
 				$data['sesi_pembelajaran'] = -1;
 			}

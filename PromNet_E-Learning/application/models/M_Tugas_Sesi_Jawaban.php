@@ -15,42 +15,76 @@ class M_Tugas_Sesi_Jawaban extends CI_Model {
 
  public function getByIdSoal($id_mapel = -1, $sesi_ke = -1)
   {
-    $id_sesi = $this->getBySesi_ke($id_mapel, $sesi_ke)->row();
+    if (empty($this->getBySesi_ke($id_mapel, $sesi_ke)->row())) {
+      $id_sesi = -1;
+    }else{
+      $id_sesi = $this->getBySesi_ke($id_mapel, $sesi_ke)->row()->id;
+    }
 
     $this->db->select('*');
     $this->db->from('tugas_sesi_soal');
-    $this->db->where('id_sesi', $id_sesi->id);
+    $this->db->where('id_sesi', $id_sesi);
     return  $this->db->get();
   }
 
   public function getByIdJawaban($id_mapel = -1, $sesi_ke)
   {
-    $id_sesi = $this->getBySesi_ke($id_mapel, $sesi_ke)->row();
+    if (empty($this->getBySesi_ke($id_mapel, $sesi_ke)->row())) {
+      $id_sesi = -1;
+    }else{
+      $id_sesi = $this->getBySesi_ke($id_mapel, $sesi_ke)->row()->id;
+    }
 
     $this->db->select('id');
     $this->db->from('tugas_sesi_soal');
-    $this->db->where('id_sesi', $id_sesi->id);
+    $this->db->where('id_sesi', $id_sesi);
     $id_soal = $this->db->get()->row();
+
+    if(empty($id_soal) ) {
+      $id_soal = -1;
+    }else{
+      $id_soal = $id_soal->id;
+    }
 
     $this->db->select('*');
     $this->db->from('tugas_sesi_jawaban');
-    $this->db->where('id_soal', $id_soal->id);
+    $this->db->where('id_soal', $id_soal);
     $username = $this->session->userdata('username');
     $this->db->where('nis', $username);
     return  $this->db->get();
   }
 
-  public function AddJawaban($data_form = array())
+  public function Perbedaan_Waktu($waktu_yang_ditetapkan = -1)
   {
     date_default_timezone_set("Asia/Jakarta");
-    $tanggal_pengumpulan=date_create(date('Y-m-d H:i:s'));
+    $tanggal_akses=date_create(date('Y-m-d H:i:s'));            //waktu sever terkini
 
-    $d = strtotime($data_form['waktu_deadline_tugas']);
-    $tanggal_deadline=date_create(date('Y-m-d H:i:s', $d));
+    $d = strtotime($waktu_yang_ditetapkan);                     //convert format waktu normal (bahasa manusia) ke Timestamp Unix
+    $waktu_yang_ditetapkan=date_create(date('Y-m-d H:i:s', $d));
 
-    $perbedaan_waktu_pengumpulan = date_diff($tanggal_deadline, $tanggal_pengumpulan);
-    echo $perbedaan_waktu_pengumpulan->format('%R');
+    $perbedaan_waktu_pengumpulan = date_diff($tanggal_akses,  $waktu_yang_ditetapkan);
+
     if ($perbedaan_waktu_pengumpulan->format('%R') == '+') {
+      return 1;      // '+'
+    }else{
+      return -1;      // '-'
+    }
+  }
+
+  public function Akses_Pengumpulan($waktu_deadline_tugas = -1)
+  {
+    if ($waktu_deadline_tugas == -1) {
+      return -1;
+    }else{
+      return $this->Perbedaan_Waktu($waktu_deadline_tugas);
+    }
+  }
+
+  public function Data_Jawaban($data_form = array())
+  {
+    $perbedaan_waktu_pengumpulan = $this->Perbedaan_Waktu($data_form['waktu_deadline_tugas']);
+
+    if ($perbedaan_waktu_pengumpulan == 1) {
       $status_pengumpulan = 'Tepat Waktu';
     }else{
       $status_pengumpulan = 'Terlambat';
@@ -90,7 +124,21 @@ class M_Tugas_Sesi_Jawaban extends CI_Model {
       'status_pengumpulan' => $status_pengumpulan,
     );
 
-    $this->db->insert('tugas_sesi_jawaban', $data);
+    return $data;
+  }
+  public function AddJawaban($data_form = array())
+  {
+    $data_jawaban = $this->Data_Jawaban($data_form);
+
+    $this->db->insert('tugas_sesi_jawaban', $data_jawaban);
+  }
+
+  public function EditJawaban($id_jawaban = -1, $data_form = array())
+  {
+    $data_jawaban = $this->Data_Jawaban($data_form);
+    
+    $this->db->where('id', $id_jawaban);
+    $this->db->update('tugas_sesi_jawaban', $data_jawaban);
   }
 
 }

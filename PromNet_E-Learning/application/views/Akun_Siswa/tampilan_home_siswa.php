@@ -37,15 +37,25 @@
                                 </tr>
                             </thead>
                             <tbody>
-                              <?php $no = 1; foreach ($mata_pelajaran as $column): ?>
-                                <tr class="table-primary">
-                                  <th scope="row"><?php echo $no; ?></th>
-                                  <td style="font-family: georgia;"><?php echo $column->id; ?></td>
-                                  <td style="font-family: verdana;"><?php echo $column->kd_Mapel; ?></td>
-                                  <td style="font-family: verdana;"><a href="<?php echo site_url('Sesi_Pembelajaran_Siswa/index/'. $column->kd_Mapel); ?>" class="text-danger"><?php echo $column->Nama_Mapel; ?></a></td>
-                                  <td style="font-family: verdana;"><?php echo $column->Jam_Pembelajaran; ?></td>
-                                </tr>
-                              <?php $no++; endforeach; ?>
+
+                              <?php
+                                $no = 1;
+                                if ($mata_pelajaran == -1) {
+                                  echo "<tr class='table-primary'><td colspan='5' align='center'><h3>Tugas, tidak tersedia.</h3></td></tr>";
+                                }else{
+                                  foreach ($mata_pelajaran as $column): ?>
+                                    <tr class="table-primary">
+                                      <th scope="row"><?php echo $no; ?></th>
+                                      <td style="font-family: georgia;"><?php echo $column->id; ?></td>
+                                      <td style="font-family: verdana;"><?php echo $column->kd_Mapel; ?></td>
+                                      <td style="font-family: verdana;"><a href="<?php echo site_url('Sesi_Pembelajaran_Siswa/index/'. $column->kd_Mapel); ?>" class="text-danger"><?php echo $column->Nama_Mapel; ?></a></td>
+                                      <td style="font-family: verdana;"><?php echo $column->Jam_Pembelajaran; ?></td>
+                                    </tr>
+                              <?php
+                                  $no++;
+                                  endforeach;
+                                }
+                              ?>
                         </table>
                 </div>
             </div>

@@ -10,6 +10,11 @@ class Home_Siswa extends CI_Controller {
 		}else{
 			$this->load->model('M_Mata_Pelajaran');
 			$data['mata_pelajaran'] = $this->M_Mata_Pelajaran->getAll()->result();
+
+			if (empty($data['mata_pelajaran'])) {
+				$data['mata_pelajaran'] = -1;
+			}
+			
 			//print_r($data);
 			$this->load->view('Akun_Siswa/tampilan_home_siswa', $data);
 		}

@@ -12,12 +12,19 @@ class Tugas_Sesi_Jawaban_Siswa extends CI_Controller {
 				die("<h1>Maaf, tidak ada Mata Pelajaran yang dipilih. Silahkan memilih Mata Pelajaran.</H1>");
 			}
 			$this->load->model('M_Tugas_Sesi_Jawaban');
-			$data['tugas_sesi_soal'] = $this->M_Tugas_Sesi_Jawaban->getByIdSoal($id_mapel, $sesi_ke)->result();
+			$data['tugas_sesi_soal'] = $this->M_Tugas_Sesi_Jawaban->getByIdSoal($id_mapel, $sesi_ke)->row();
 			if (empty($data['tugas_sesi_soal'])) {
 				$data['tugas_sesi_soal'] = -1;
 			}
 
-			$data['tugas_sesi_jawaban'] = $this->M_Tugas_Sesi_Jawaban->getByIdJawaban($id_mapel, $sesi_ke)->result();
+			$data['tugas_sesi_jawaban'] = $this->M_Tugas_Sesi_Jawaban->getByIdJawaban($id_mapel, $sesi_ke)->row();
+			if (empty($data['tugas_sesi_jawaban'])) {
+				$data['tugas_sesi_jawaban'] = -1;
+			}else{
+				if (isset($data['tugas_sesi_soal']->waktu_deadline_tugas) ) {
+					$data['akses_pengumpulan'] = $this->M_Tugas_Sesi_Jawaban->Akses_Pengumpulan($data['tugas_sesi_soal']->waktu_deadline_tugas);
+				}
+			}
 
 			if ($button_kirim == 'status_error' or $button_kirim == 'status_berhasil') {
 				$data['status'] = $this->session->status_upload;
@@ -28,7 +35,7 @@ class Tugas_Sesi_Jawaban_Siswa extends CI_Controller {
 		}
 	}
 
-	public function do_upload($id_mapel = -1, $sesi_ke = -1, $tugas_ke = -1)
+	public function do_upload($id_mapel = -1, $id_soal = -1, $sesi_ke = -1)
   {
     $config['upload_path']          	= './jawaban/';
     $config['allowed_types']        	= 'gif|jpg|png|pdf|doc|docx|pptx|rar|xlsx|ppt';
@@ -37,16 +44,15 @@ class Tugas_Sesi_Jawaban_Siswa extends CI_Controller {
     $config['max_height']           	= 0; 			// batas file image  					(0 = unlimited)
 		$config['overwrite']							= true;
 
-		$data['id_soal'] = $sesi_ke;
-		$data['tugas_ke'] = $tugas_ke;
+		$data['id_soal'] = $id_soal;
+		$data['sesi_ke'] = $sesi_ke;
 		$data['id_mapel'] = $id_mapel;
 		$data['nis'] = $this->session->userdata('username');
 
 		//$data['nama_eksistensi'] = $this->upload->data('file_ext');
-		$data['berkas_jawaban'] = 'TGS_' . $data['tugas_ke'] . '_' . $data['id_mapel'] . '_' . $data['nis'];
-		//echo $berkas_jawaban;
+		$data['berkas_jawaban'] = 'TGS_' . $data['sesi_ke'] . '_' . $data['id_mapel'] . '_' . $data['nis'];
+
 		$config['file_name']						= $data['berkas_jawaban'];
-		//exit;
     $this->load->library('upload', $config);
 
     if ( ! $this->upload->do_upload('userfile'))
@@ -59,15 +65,30 @@ class Tugas_Sesi_Jawaban_Siswa extends CI_Controller {
 						$data['komentar_siswa'] = $this->input->post('komentar_siswa');
 						$data['waktu_deadline_tugas'] = $this->input->post('waktu_deadline_tugas');
 
-						$data['berkas_jawaban'] = $data['berkas_jawaban'] . $this->upload->data('file_ext');
+						$data['berkas_jawaban'] = $this->upload->data('file_name');
 
 						$this->load->model('M_Tugas_Sesi_Jawaban');
-						$this->M_Tugas_Sesi_Jawaban->AddJawaban($data);
+
+						if ($this->input->post('update')) {
+							$this->M_Tugas_Sesi_Jawaban->EditJawaban($this->input->post('id_jawaban'), $data);
+						} else {
+							$this->M_Tugas_Sesi_Jawaban->AddJawaban($data);
+						}
+
 
 						$this->session->status_upload = "Berhasil";
             redirect('Tugas_Sesi_Jawaban_Siswa/index/'. $this->uri->segment(3) . '/' . $sesi_ke . '/' . 'status_berhasil');
 
     }
   }
+
+	public function Download($nama = '')
+	{
+		if($this->session->userdata('user') != 'siswa') {
+			redirect('login');
+		}else{
+		 force_download('jawaban/' . $nama, NULL);
+	 	}
+	}
 
 }
