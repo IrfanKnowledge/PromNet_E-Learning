@@ -26,6 +26,7 @@ class Tes_Pengayaan_Siswa extends CI_Controller {
       $data['tes_pengayaan_soal'] = $this->M_Tes_Pengayaan_Soal->getById($id_Tes)->result();
 
       $this->load->view('Akun_Siswa/TesPengayaanSoal', $data);
+			
     }
 
   }
