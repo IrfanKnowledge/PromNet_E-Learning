@@ -62,6 +62,7 @@ class M_Tugas_Sesi_Jawaban extends CI_Model {
     $d = strtotime($waktu_yang_ditetapkan);                     //convert format waktu normal (bahasa manusia) ke Timestamp Unix
     $waktu_yang_ditetapkan=date_create(date('Y-m-d H:i:s', $d));
 
+
     $perbedaan_waktu_pengumpulan = date_diff($tanggal_akses,  $waktu_yang_ditetapkan);
 
     if ($perbedaan_waktu_pengumpulan->format('%R') == '+') {
@@ -136,7 +137,7 @@ class M_Tugas_Sesi_Jawaban extends CI_Model {
   public function EditJawaban($id_jawaban = -1, $data_form = array())
   {
     $data_jawaban = $this->Data_Jawaban($data_form);
-    
+
     $this->db->where('id', $id_jawaban);
     $this->db->update('tugas_sesi_jawaban', $data_jawaban);
   }

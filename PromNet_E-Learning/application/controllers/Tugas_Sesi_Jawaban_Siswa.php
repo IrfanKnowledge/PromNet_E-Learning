@@ -15,6 +15,8 @@ class Tugas_Sesi_Jawaban_Siswa extends CI_Controller {
 			$data['tugas_sesi_soal'] = $this->M_Tugas_Sesi_Jawaban->getByIdSoal($id_mapel, $sesi_ke)->row();
 			if (empty($data['tugas_sesi_soal'])) {
 				$data['tugas_sesi_soal'] = -1;
+			}else{
+				$data['status_dilarang_akses'] = $this->M_Tugas_Sesi_Jawaban->Perbedaan_Waktu($data['tugas_sesi_soal']->waktu_mulai_tugas);
 			}
 
 			$data['tugas_sesi_jawaban'] = $this->M_Tugas_Sesi_Jawaban->getByIdJawaban($id_mapel, $sesi_ke)->row();
@@ -38,7 +40,7 @@ class Tugas_Sesi_Jawaban_Siswa extends CI_Controller {
 	public function do_upload($id_mapel = -1, $id_soal = -1, $sesi_ke = -1)
   {
     $config['upload_path']          	= './jawaban/';
-    $config['allowed_types']        	= 'gif|jpg|png|pdf|doc|docx|pptx|rar|xlsx|ppt';
+    $config['allowed_types']        	= 'gif|jpg|png|pdf|doc|docx|pptx|rar|xlsx|ppt|txt';
     $config['max_size']             	= 11000; 	// batas ukuran upload file 	(0 = unlimited) satuan KB (KiloBytes)
     $config['max_width']            	= 0;  		// batas file image 					(0 = unlimited)
     $config['max_height']           	= 0; 			// batas file image  					(0 = unlimited)
@@ -55,31 +57,46 @@ class Tugas_Sesi_Jawaban_Siswa extends CI_Controller {
 		$config['file_name']						= $data['berkas_jawaban'];
     $this->load->library('upload', $config);
 
-    if ( ! $this->upload->do_upload('userfile'))
-    {
-            $this->session->status_upload = $this->upload->display_errors();
-						redirect('Tugas_Sesi_Jawaban_Siswa/index/'. $this->uri->segment(3) . '/' . $sesi_ke . '/' . 'status_error');
+    $data['waktu_deadline_tugas'] = $this->input->post('waktu_deadline_tugas');
+
+    $this->load->model('M_Tugas_Sesi_Jawaban');
+
+		$tugas_sesi_jawaban = $this->M_Tugas_Sesi_Jawaban->getByIdJawaban($id_mapel, $sesi_ke)->row();
+		if (empty($tugas_sesi_jawaban)) {
+			$tugas_sesi_jawaban = -1;
+		}else{
+			$tugas_sesi_jawaban = 1;
+		}
+
+    if ($tugas_sesi_jawaban == -1 || $this->M_Tugas_Sesi_Jawaban->Perbedaan_Waktu($data['waktu_deadline_tugas']) == 1 ) {  // Jika tugas_sesi_jawaban MASIIH KOSONG atau Perbedaan_Waktu masih BELUM LEWAT dari DEADLINE TUGAS maka...
+
+		    if ( ! $this->upload->do_upload('userfile')){	//jika gagal meng-upload
+
+					      $this->session->status_upload = $this->upload->display_errors();
+								redirect('Tugas_Sesi_Jawaban_Siswa/index/'. $this->uri->segment(3) . '/' . $sesi_ke . '/' . 'status_error');
+
+		    }else{	//Jika Upload Berhasil
+
+								$data['komentar_siswa'] = $this->input->post('komentar_siswa');
+
+								$data['berkas_jawaban'] = $this->upload->data('file_name');
+
+								if ($this->input->post('update')) {
+									$this->M_Tugas_Sesi_Jawaban->EditJawaban($this->input->post('id_jawaban'), $data);
+								} else {
+									$this->M_Tugas_Sesi_Jawaban->AddJawaban($data);
+								}
+
+
+								$this->session->status_upload = "Berhasil";
+		            redirect('Tugas_Sesi_Jawaban_Siswa/index/'. $this->uri->segment(3) . '/' . $sesi_ke . '/' . 'status_berhasil');
+
+		    }
+
+    }else{ // Jika Perbedaan_Waktu SUDAH LEWAT dari DEADLINE TUGAS maka...
+    	redirect('Tugas_Sesi_Jawaban_Siswa/index/'. $this->uri->segment(3) . '/' . $sesi_ke);
     }
-    else
-    {
-						$data['komentar_siswa'] = $this->input->post('komentar_siswa');
-						$data['waktu_deadline_tugas'] = $this->input->post('waktu_deadline_tugas');
 
-						$data['berkas_jawaban'] = $this->upload->data('file_name');
-
-						$this->load->model('M_Tugas_Sesi_Jawaban');
-
-						if ($this->input->post('update')) {
-							$this->M_Tugas_Sesi_Jawaban->EditJawaban($this->input->post('id_jawaban'), $data);
-						} else {
-							$this->M_Tugas_Sesi_Jawaban->AddJawaban($data);
-						}
-
-
-						$this->session->status_upload = "Berhasil";
-            redirect('Tugas_Sesi_Jawaban_Siswa/index/'. $this->uri->segment(3) . '/' . $sesi_ke . '/' . 'status_berhasil');
-
-    }
   }
 
 	public function Download($nama = '')

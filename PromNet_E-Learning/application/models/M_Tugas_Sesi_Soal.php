@@ -25,6 +25,10 @@ class M_Tugas_Sesi_Soal extends CI_Model {
       $array_sesi_ke[] = $record->Sesi_Ke;  //$array_sesi_ke = tipe data array yang berisikan FIELD Sesi_Ke
     }
 
+    if (empty($array_sesi_ke)) {
+      $array_sesi_ke = array();
+    }
+
     $now = current($array_sesi_ke); //$now = menunjuk Value awal $array_sesi_ke
 
     foreach ($id_sesi as $record) {
@@ -44,6 +48,7 @@ class M_Tugas_Sesi_Soal extends CI_Model {
         $tugas_sesi_soal[] = (object) $merge_tabel; //Convert Array To stdClass Object
       }
     }
+
     if (empty($tugas_sesi_soal)) {
       $tugas_sesi_soal = -1;
     }

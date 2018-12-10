@@ -96,7 +96,7 @@
                   $tugas_sesi_soal = -1;
                 }
 
-                if($tugas_sesi_soal != -1): $tugas_sesi_soal = (object) $tugas_sesi_soal; //convert to Object agar OOP Style
+                 if($tugas_sesi_soal != -1): $tugas_sesi_soal = (object) $tugas_sesi_soal; //convert to Object agar OOP Style
               ?>
 
                 <table class="table table-bordered table-hover" align ="center">
@@ -173,24 +173,31 @@
                     <?php endif; ?>
 
                   <?php else: ?>
+                    <?php if($status_dilarang_akses == 1): ?>
 
-                    <tbody>
-                      <?php $no=1; echo form_open_multipart('Tugas_Sesi_Jawaban_Siswa/do_upload/' . $this->uri->segment(3) . '/' . $tugas_sesi_soal->id . '/' . $this->uri->segment(4)); ?>
-                      <tr class="table-primary">
-                        <input type="hidden" name="waktu_deadline_tugas" value="<?php echo $tugas_sesi_soal->waktu_deadline_tugas ?>">
-                        <td><?php echo $no; ?></td>
-                        <td><input type="file" name="userfile" size="10">
-                          <br>
-                          <input type="submit" value="kirim">
-                        </td>
-                        <td><textarea name="komentar_siswa" rows="8" cols="40"></textarea> </td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                      </tr>
-                    </form>
-                  </tbody>
+                      <tr class='table-primary'><td colspan='7' align='center'><h3>Waktu mulai tugas, belum dimulai.</h3></td></tr>
+
+                    <?php else: ?>
+
+                      <tbody>
+                        <?php $no=1; echo form_open_multipart('Tugas_Sesi_Jawaban_Siswa/do_upload/' . $this->uri->segment(3) . '/' . $tugas_sesi_soal->id . '/' . $this->uri->segment(4)); ?>
+                        <tr class="table-primary">
+                          <input type="hidden" name="waktu_deadline_tugas" value="<?php echo $tugas_sesi_soal->waktu_deadline_tugas ?>">
+                          <td><?php echo $no; ?></td>
+                          <td><input type="file" name="userfile" size="10">
+                            <br>
+                            <input type="submit" value="kirim">
+                          </td>
+                          <td><textarea name="komentar_siswa" rows="8" cols="40"></textarea> </td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                      </form>
+                    </tbody>
+
+                    <?php endif; ?>
                   <?php $no++; endif; ?>
 
                 </table>

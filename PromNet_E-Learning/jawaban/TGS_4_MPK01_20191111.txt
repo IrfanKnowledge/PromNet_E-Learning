@@ -1,0 +1,7 @@
+Kelompok 2:
+Rumah Sakit
+
+Pilih perusahaan (Studi Kasus)
+Buat ERD
+Buat SQL dari ERD
+Buat Integritas Data

@@ -8,9 +8,7 @@ class Tes_Pengayaan_Siswa extends CI_Controller {
 		if($this->session->userdata('user') != 'siswa') {
 			redirect('login');
 		}else{
-			if ($id_mapel == -1) {
-				die("<h1>Maaf, tidak ada Mata Pelajaran yang dipilih. Silahkan memilih Mata Pelajaran.</H1>");
-			}
+
 			$this->load->model('M_Tes_Pengayaan');
 			$data['tes_pengayaan'] = $this->M_Tes_Pengayaan->getById($id_mapel);
 
