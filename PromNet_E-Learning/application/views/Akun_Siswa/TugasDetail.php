@@ -143,10 +143,10 @@
                                         <input type="submit" name="submit" value="Submit" class="btn btn-primary">
                                       </div>
                                   </td>
-                                  <td><textarea name="komentar_siswa" rows="8" cols="40"><?php echo $tugas_sesi_jawaban->komentar_siswa; ?></textarea></td>
+                                  <td><textarea name="komentar_siswa" rows="4" cols="30"><?php echo $tugas_sesi_jawaban->komentar_siswa; ?></textarea></td>
                                   <td><?php echo $tugas_sesi_jawaban->komentar_guru; ?></td>
-                                  <td><?php echo $tugas_sesi_jawaban->waktu_pengumpulan; ?></td>
-                                  <td><?php echo $tugas_sesi_jawaban->status_pengumpulan; ?></td>
+                                  <td align="center"><?php echo $tugas_sesi_jawaban->waktu_pengumpulan; ?></td>
+                                  <td align="center" style="font-size: 20px"><b><?php echo $tugas_sesi_jawaban->status_pengumpulan; ?></b></td>
                                   <td><?php echo $tugas_sesi_jawaban->nilai_tugas; ?></td>
                                 </tr>
                               </form>
@@ -161,8 +161,8 @@
                                 <td><?php echo $tugas_sesi_jawaban->berkas_jawaban; ?></td>
                                 <td><?php echo $tugas_sesi_jawaban->komentar_siswa; ?></td>
                                 <td><?php echo $tugas_sesi_jawaban->komentar_guru; ?></td>
-                                <td><?php echo $tugas_sesi_jawaban->waktu_pengumpulan; ?></td>
-                                <td><?php echo $tugas_sesi_jawaban->status_pengumpulan; ?></td>
+                                <td align="center"><?php echo $tugas_sesi_jawaban->waktu_pengumpulan; ?></td>
+                                <td align="center" style="font-size: 20px"><b><?php echo $tugas_sesi_jawaban->status_pengumpulan; ?></b></td>
                                 <td><?php echo $tugas_sesi_jawaban->nilai_tugas; ?></td>
                               </tr>
                               <?php
@@ -188,10 +188,10 @@
                             <br>
                             <input type="submit" value="kirim">
                           </td>
-                          <td><textarea name="komentar_siswa" rows="8" cols="40"></textarea> </td>
+                          <td><textarea name="komentar_siswa" rows="4" cols="30"></textarea> </td>
                           <td></td>
                           <td></td>
-                          <td></td>
+                          <td align="center" style="font-size: 20px"><b>Belum<br>Mengumpulkan</b></td>
                           <td></td>
                         </tr>
                       </form>

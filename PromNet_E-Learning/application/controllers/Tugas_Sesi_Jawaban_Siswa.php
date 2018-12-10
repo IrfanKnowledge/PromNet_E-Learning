@@ -8,9 +8,7 @@ class Tugas_Sesi_Jawaban_Siswa extends CI_Controller {
 		if($this->session->userdata('user') != 'siswa') {
 			redirect('login');
 		}else{
-			if ($id_mapel == -1) {
-				die("<h1>Maaf, tidak ada Mata Pelajaran yang dipilih. Silahkan memilih Mata Pelajaran.</H1>");
-			}
+
 			$this->load->model('M_Tugas_Sesi_Jawaban');
 			$data['tugas_sesi_soal'] = $this->M_Tugas_Sesi_Jawaban->getByIdSoal($id_mapel, $sesi_ke)->row();
 			if (empty($data['tugas_sesi_soal'])) {
