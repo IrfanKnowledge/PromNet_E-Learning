@@ -42,7 +42,7 @@
             </div>
         </div>
       </div>
-      <?php if ($this->uri->segment(1) == "Sesi_Pembelajaran_Siswa" || $this->uri->segment(1) == "Tugas_Sesi_Soal_Siswa" || $this->uri->segment(1) == "Tes_Ketuntasan_Siswa"  || $this->uri->segment(1) == "Tugas_Sesi_Jawaban_Siswa" || $this->uri->segment(1) == "Tes_Pengayaan_Siswa") : ?>
+      <?php if ($this->uri->segment(1) == "Sesi_Pembelajaran_Siswa" || $this->uri->segment(1) == "Tugas_Sesi_Soal_Siswa" || $this->uri->segment(1) == "Tes_Ketuntasan_Siswa"  || $this->uri->segment(1) == "Tes_Ketuntasan_Soal_Siswa"|| $this->uri->segment(1) == "Tugas_Sesi_Jawaban_Siswa" || $this->uri->segment(1) == "Tes_Pengayaan_Siswa") : ?>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>

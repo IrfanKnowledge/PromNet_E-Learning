@@ -13,7 +13,7 @@ class M_Tugas_Sesi_Jawaban extends CI_Model {
    return  $this->db->get();
  }
 
- public function getByIdSoal($id_mapel = -1, $sesi_ke = -1)
+ public function getByIdSesi($id_mapel = -1, $sesi_ke = -1)
   {
     if (empty($this->getBySesi_ke($id_mapel, $sesi_ke)->row())) {
       $id_sesi = -1;
@@ -27,23 +27,12 @@ class M_Tugas_Sesi_Jawaban extends CI_Model {
     return  $this->db->get();
   }
 
-  public function getByIdJawaban($id_mapel = -1, $sesi_ke)
+  public function getByIdSoal($id_mapel = -1, $sesi_ke = -1)
   {
-    if (empty($this->getBySesi_ke($id_mapel, $sesi_ke)->row())) {
-      $id_sesi = -1;
-    }else{
-      $id_sesi = $this->getBySesi_ke($id_mapel, $sesi_ke)->row()->id;
-    }
-
-    $this->db->select('id');
-    $this->db->from('tugas_sesi_soal');
-    $this->db->where('id_sesi', $id_sesi);
-    $id_soal = $this->db->get()->row();
-
-    if(empty($id_soal) ) {
+    if (empty($this->getByIdSesi($id_mapel, $sesi_ke)->row())) {
       $id_soal = -1;
     }else{
-      $id_soal = $id_soal->id;
+      $id_soal = $this->getByIdSesi($id_mapel, $sesi_ke)->row()->id;
     }
 
     $this->db->select('*');
@@ -69,15 +58,6 @@ class M_Tugas_Sesi_Jawaban extends CI_Model {
       return 1;      // '+'
     }else{
       return -1;      // '-'
-    }
-  }
-
-  public function Akses_Pengumpulan($waktu_deadline_tugas = -1)
-  {
-    if ($waktu_deadline_tugas == -1) {
-      return -1;
-    }else{
-      return $this->Perbedaan_Waktu($waktu_deadline_tugas);
     }
   }
 

@@ -22,7 +22,7 @@ class M_Tes_Ketuntasan extends CI_Model {
 
    public function getById($id_mapel = -1)
    {
-     $this->db->select('id');
+     $this->db->select('id, Sesi_Ke');
      $this->db->from('sesi_pembelajaran');
      $this->db->where('id_mapel', $id_mapel);
      $sesi_pembelajaran = $this->db->get()->result();
@@ -32,12 +32,15 @@ class M_Tes_Ketuntasan extends CI_Model {
        $this->db->from('tes_ketuntasan');
        $this->db->where('id_Sesi', $record->id);
 
-       $temp = $this->db->get()->row();
-       if (!empty($temp)) {              // cek apakah $temp tidak kosong? jika tidak kosong lakukan aksi berikut
-         $tes_ketuntasan[] = $temp;
+       $temp_test_ketuntasan = $this->db->get()->row_array();
+       $temp_sesi_ke['sesi_ke'] = $record->Sesi_Ke;
+
+       if (!empty($temp_test_ketuntasan)) {              // cek apakah $temp_test_ketuntasan tidak kosong? jika tidak kosong lakukan aksi berikut
+         $tes_ketuntasan[] = (object) array_merge($temp_test_ketuntasan, $temp_sesi_ke);
        }
      }
-     if (empty($tes_ketuntasan)) {
+
+     if (empty($sesi_pembelajaran)) {
        $tes_ketuntasan = -1;
      }
 

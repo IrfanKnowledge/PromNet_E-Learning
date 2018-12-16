@@ -29,7 +29,7 @@
               <thead class="thead-dark">
                 <tr align="center">
                   <th>No</th>
-                  <th>id_mapel</th>
+                  <th>Kd_MaPel</th>
                   <th>Topik</th>
                   <th>Uraian</th>
                   <th>Konten1</th>

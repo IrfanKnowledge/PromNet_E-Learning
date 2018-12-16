@@ -17,7 +17,7 @@ class M_Tes_Ketuntasan_Jawaban extends CI_Model {
 
     return $this->db->get();
   }
-
+  
   public function insert($data= array())
   {
     $this->db->insert('tes_ketuntasan_jawaban', $data);
