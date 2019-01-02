@@ -47,7 +47,7 @@
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <div class="collapse navbar-collapse navbar-expand" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
               <li <?php if($this->uri->segment(1) == "Sesi_Pembelajaran_Siswa"){ ?> class="nav-item active" <?php }else{ ?> class="nav-item" <?php } ?>>
                 <a class="nav-link" href=<?php echo site_url('Sesi_Pembelajaran_Siswa/index/'. $this->uri->segment(3)); ?> >Sesi Pembelajaran<span class="sr-only">(current)</span></a>

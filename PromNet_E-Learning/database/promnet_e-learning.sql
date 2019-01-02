@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 10, 2018 at 11:32 AM
+-- Generation Time: Jan 02, 2019 at 08:05 AM
 -- Server version: 10.1.37-MariaDB
 -- PHP Version: 7.2.12
 
@@ -21,8 +21,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `promnet_e-learning`
 --
-CREATE DATABASE IF NOT EXISTS `promnet_e-learning` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
-USE `promnet_e-learning`;
 
 -- --------------------------------------------------------
 
@@ -32,13 +30,14 @@ USE `promnet_e-learning`;
 -- Creation: Nov 28, 2018 at 02:31 PM
 --
 
-DROP TABLE IF EXISTS `admin`;
-CREATE TABLE `admin` (
-  `id` tinyint(1) UNSIGNED NOT NULL,
+CREATE TABLE IF NOT EXISTS `admin` (
+  `id` tinyint(1) UNSIGNED NOT NULL AUTO_INCREMENT,
   `nama` varchar(40) NOT NULL,
   `username` varchar(40) NOT NULL,
-  `password` varbinary(32) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `password` varbinary(32) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `username` (`username`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 --
 -- RELATIONSHIPS FOR TABLE `admin`:
@@ -61,13 +60,14 @@ INSERT INTO `admin` (`id`, `nama`, `username`, `password`) VALUES
 -- Creation: Nov 28, 2018 at 02:31 PM
 --
 
-DROP TABLE IF EXISTS `mata_pelajaran`;
-CREATE TABLE `mata_pelajaran` (
-  `id` tinyint(1) NOT NULL,
+CREATE TABLE IF NOT EXISTS `mata_pelajaran` (
+  `id` tinyint(1) NOT NULL AUTO_INCREMENT,
   `kd_Mapel` char(10) NOT NULL,
   `Nama_Mapel` varchar(100) NOT NULL,
-  `Jam_Pembelajaran` tinyint(1) UNSIGNED NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `Jam_Pembelajaran` tinyint(1) UNSIGNED NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `kd_Mapel` (`kd_Mapel`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 --
 -- RELATIONSHIPS FOR TABLE `mata_pelajaran`:
@@ -91,15 +91,17 @@ INSERT INTO `mata_pelajaran` (`id`, `kd_Mapel`, `Nama_Mapel`, `Jam_Pembelajaran`
 -- Creation: Nov 28, 2018 at 02:31 PM
 --
 
-DROP TABLE IF EXISTS `nilai_akhir`;
-CREATE TABLE `nilai_akhir` (
-  `id` tinyint(1) UNSIGNED NOT NULL,
+CREATE TABLE IF NOT EXISTS `nilai_akhir` (
+  `id` tinyint(1) UNSIGNED NOT NULL AUTO_INCREMENT,
   `NIS` char(10) NOT NULL,
   `id_Mapel` char(10) NOT NULL,
   `Nilai_Tugas` tinyint(1) UNSIGNED DEFAULT '0',
   `Nilai_Pengayaan` tinyint(1) UNSIGNED DEFAULT '0',
   `Nilai_Ketuntasan` tinyint(1) UNSIGNED DEFAULT '0',
-  `NilaiAkhir` tinyint(1) UNSIGNED DEFAULT NULL
+  `NilaiAkhir` tinyint(1) UNSIGNED DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_nilai_akhir_nis` (`NIS`),
+  KEY `fk_nilai_akhir_id_mapel` (`id_Mapel`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -118,17 +120,18 @@ CREATE TABLE `nilai_akhir` (
 -- Creation: Dec 09, 2018 at 07:36 AM
 --
 
-DROP TABLE IF EXISTS `sesi_pembelajaran`;
-CREATE TABLE `sesi_pembelajaran` (
-  `id` tinyint(1) UNSIGNED NOT NULL,
+CREATE TABLE IF NOT EXISTS `sesi_pembelajaran` (
+  `id` tinyint(1) UNSIGNED NOT NULL AUTO_INCREMENT,
   `id_mapel` char(10) NOT NULL,
   `Sesi_Ke` tinyint(1) UNSIGNED NOT NULL,
   `Topik` varchar(50) NOT NULL,
   `Uraian` varchar(255) NOT NULL,
   `Konten1` varchar(60) NOT NULL,
   `Konten2` varchar(60) DEFAULT NULL,
-  `Konten3` varchar(60) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `Konten3` varchar(60) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_sesi_pembelajaran_id_mapel` (`id_mapel`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
 --
 -- RELATIONSHIPS FOR TABLE `sesi_pembelajaran`:
@@ -156,13 +159,14 @@ INSERT INTO `sesi_pembelajaran` (`id`, `id_mapel`, `Sesi_Ke`, `Topik`, `Uraian`,
 -- Creation: Nov 28, 2018 at 02:31 PM
 --
 
-DROP TABLE IF EXISTS `siswa`;
-CREATE TABLE `siswa` (
-  `id` tinyint(1) UNSIGNED NOT NULL,
+CREATE TABLE IF NOT EXISTS `siswa` (
+  `id` tinyint(1) UNSIGNED NOT NULL AUTO_INCREMENT,
   `NIS` char(10) NOT NULL,
   `Nama` varchar(40) NOT NULL,
-  `Password` varbinary(32) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `Password` varbinary(32) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `NIS` (`NIS`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 --
 -- RELATIONSHIPS FOR TABLE `siswa`:
@@ -185,16 +189,17 @@ INSERT INTO `siswa` (`id`, `NIS`, `Nama`, `Password`) VALUES
 -- Creation: Nov 28, 2018 at 02:31 PM
 --
 
-DROP TABLE IF EXISTS `tes_ketuntasan`;
-CREATE TABLE `tes_ketuntasan` (
-  `id` tinyint(1) UNSIGNED NOT NULL,
+CREATE TABLE IF NOT EXISTS `tes_ketuntasan` (
+  `id` tinyint(1) UNSIGNED NOT NULL AUTO_INCREMENT,
   `id_Sesi` tinyint(1) UNSIGNED NOT NULL,
   `Judul` varchar(100) NOT NULL,
   `Durasi` tinyint(1) UNSIGNED NOT NULL,
   `Uraian` varchar(1000) NOT NULL,
   `Waktu_Mulai_tes` datetime NOT NULL,
-  `Waktu_Berakhir_tes` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `Waktu_Berakhir_tes` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `fk_tes_ketuntasan_id_sesi` (`id_Sesi`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
 --
 -- RELATIONSHIPS FOR TABLE `tes_ketuntasan`:
@@ -207,9 +212,9 @@ CREATE TABLE `tes_ketuntasan` (
 --
 
 INSERT INTO `tes_ketuntasan` (`id`, `id_Sesi`, `Judul`, `Durasi`, `Uraian`, `Waktu_Mulai_tes`, `Waktu_Berakhir_tes`) VALUES
-(1, 1, '\"Profesi dalam  Pengembangan Aplikasi Web\"', 30, '\"Pilihlah jawaban Benar atau Salah \r\npada Soal dalam Tes Pengayaan Ini\"\r\n', '2018-11-13 00:00:00', '2018-11-17 00:00:00'),
-(2, 2, '\"Alur dan Perangkat Pengembangan  Aplikasi Web\"', 30, '\"Pilihlah jawaban Benar atau Salah \r\npada Soal dalam Tes Pengayaan Ini\"\r\n', '2018-11-13 00:00:00', '2018-11-17 00:00:00'),
-(3, 3, '\"Menyajikan Format Teks  dalam Dokumen Web\"', 30, '\"Pilihlah jawaban Benar atau Salah \r\npada Soal dalam Tes Pengayaan Ini\"', '2018-11-13 00:00:00', '2018-11-17 00:00:00'),
+(1, 1, '\"Profesi dalam  Pengembangan Aplikasi Web\"', 30, '\"Pilihlah jawaban Benar atau Salah \r\npada Soal dalam Tes Pengayaan Ini\"\r\n', '2019-01-01 00:00:00', '2019-02-20 00:00:00'),
+(2, 2, '\"Alur dan Perangkat Pengembangan  Aplikasi Web\"', 30, '\"Pilihlah jawaban Benar atau Salah \r\npada Soal dalam Tes Pengayaan Ini\"\r\n', '2019-02-02 00:00:00', '2019-02-03 00:00:00'),
+(3, 3, '\"Menyajikan Format Teks  dalam Dokumen Web\"', 30, '\"Pilihlah jawaban Benar atau Salah \r\npada Soal dalam Tes Pengayaan Ini\"', '2018-12-01 00:00:00', '2018-12-02 00:00:00'),
 (4, 4, '\"Menyajikan Pemformatan  Teks dan Paragraf Web\"', 30, '\"Pilihlah jawaban Benar atau Salah \r\npada Soal dalam Tes Pengayaan Ini\"', '2018-11-13 00:00:00', '2018-11-17 00:00:00'),
 (5, 5, '\"Menyajikan Hasil Pembuatan  List Minimal\"', 30, '\"Pilihlah jawaban Benar atau Salah \r\npada Soal dalam Tes Pengayaan Ini\"\r\n', '2018-11-13 00:00:00', '2018-11-17 00:00:00'),
 (6, 6, '\"Menyajikan Pembuatan  List Kombinasi\"', 30, '\"Pilihlah jawaban Benar atau Salah \r\npada Soal dalam Tes Pengayaan Ini\"\r\n', '2018-11-13 00:00:00', '2018-11-17 00:00:00');
@@ -219,16 +224,18 @@ INSERT INTO `tes_ketuntasan` (`id`, `id_Sesi`, `Judul`, `Durasi`, `Uraian`, `Wak
 --
 -- Table structure for table `tes_ketuntasan_jawaban`
 --
--- Creation: Nov 28, 2018 at 02:31 PM
+-- Creation: Dec 16, 2018 at 04:06 AM
 --
 
-DROP TABLE IF EXISTS `tes_ketuntasan_jawaban`;
-CREATE TABLE `tes_ketuntasan_jawaban` (
-  `id` smallint(1) UNSIGNED NOT NULL,
+CREATE TABLE IF NOT EXISTS `tes_ketuntasan_jawaban` (
+  `id` smallint(1) UNSIGNED NOT NULL AUTO_INCREMENT,
   `NIS` char(10) NOT NULL,
   `id_Soal` tinyint(1) UNSIGNED NOT NULL,
-  `Jawaban` varchar(500) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `Jawaban` varchar(500) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_tes_ketuntasan_jawaban_nis` (`NIS`),
+  KEY `fk_tes_ketuntasan_jawaban_id_soal` (`id_Soal`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 --
 -- RELATIONSHIPS FOR TABLE `tes_ketuntasan_jawaban`:
@@ -238,6 +245,17 @@ CREATE TABLE `tes_ketuntasan_jawaban` (
 --       `siswa` -> `NIS`
 --
 
+--
+-- Dumping data for table `tes_ketuntasan_jawaban`
+--
+
+INSERT INTO `tes_ketuntasan_jawaban` (`id`, `NIS`, `id_Soal`, `Jawaban`) VALUES
+(1, '20191111', 1, 'Benar'),
+(2, '20191111', 2, 'Benar'),
+(3, '20191111', 3, 'Benar'),
+(4, '20191111', 4, 'Benar'),
+(5, '20191111', 5, 'Benar');
+
 -- --------------------------------------------------------
 
 --
@@ -246,14 +264,16 @@ CREATE TABLE `tes_ketuntasan_jawaban` (
 -- Creation: Nov 28, 2018 at 02:31 PM
 --
 
-DROP TABLE IF EXISTS `tes_ketuntasan_nilai`;
-CREATE TABLE `tes_ketuntasan_nilai` (
-  `id` tinyint(1) UNSIGNED NOT NULL,
+CREATE TABLE IF NOT EXISTS `tes_ketuntasan_nilai` (
+  `id` tinyint(1) UNSIGNED NOT NULL AUTO_INCREMENT,
   `NIS` char(10) NOT NULL,
   `id_Tes` tinyint(1) UNSIGNED NOT NULL,
   `Nilai_Tes` tinyint(1) UNSIGNED DEFAULT NULL,
-  `Status` enum('complete','not complete') NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `Status` enum('complete','not complete') NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_tes_ketuntasan_nilai_nis` (`NIS`),
+  KEY `fk_tes_ketuntasan_nilai_id_tes` (`id_Tes`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 --
 -- RELATIONSHIPS FOR TABLE `tes_ketuntasan_nilai`:
@@ -268,7 +288,7 @@ CREATE TABLE `tes_ketuntasan_nilai` (
 --
 
 INSERT INTO `tes_ketuntasan_nilai` (`id`, `NIS`, `id_Tes`, `Nilai_Tes`, `Status`) VALUES
-(1, '20191111', 1, 100, 'complete'),
+(1, '20191111', 1, 0, 'not complete'),
 (2, '20191112', 1, 100, 'complete'),
 (3, '20191113', 1, 0, 'not complete');
 
@@ -280,9 +300,8 @@ INSERT INTO `tes_ketuntasan_nilai` (`id`, `NIS`, `id_Tes`, `Nilai_Tes`, `Status`
 -- Creation: Nov 28, 2018 at 02:31 PM
 --
 
-DROP TABLE IF EXISTS `tes_ketuntasan_soal`;
-CREATE TABLE `tes_ketuntasan_soal` (
-  `id` tinyint(1) UNSIGNED NOT NULL,
+CREATE TABLE IF NOT EXISTS `tes_ketuntasan_soal` (
+  `id` tinyint(1) UNSIGNED NOT NULL AUTO_INCREMENT,
   `id_Tes` tinyint(1) UNSIGNED NOT NULL,
   `No_Soal` tinyint(1) UNSIGNED NOT NULL,
   `Pertanyaan` varchar(500) NOT NULL,
@@ -290,8 +309,10 @@ CREATE TABLE `tes_ketuntasan_soal` (
   `pilihan2` varchar(500) NOT NULL,
   `pilihan3` varchar(500) DEFAULT NULL,
   `pilihan4` varchar(500) DEFAULT NULL,
-  `Kunci_Jawaban` varchar(500) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `Kunci_Jawaban` varchar(500) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_tes_ketuntasan_soal_id_sesi` (`id_Tes`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 --
 -- RELATIONSHIPS FOR TABLE `tes_ketuntasan_soal`:
@@ -313,44 +334,33 @@ INSERT INTO `tes_ketuntasan_soal` (`id`, `id_Tes`, `No_Soal`, `Pertanyaan`, `pil
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tes_ketuntasan_waktu`
---
--- Creation: Nov 28, 2018 at 02:31 PM
---
-
-DROP TABLE IF EXISTS `tes_ketuntasan_waktu`;
-CREATE TABLE `tes_ketuntasan_waktu` (
-  `id` tinyint(1) NOT NULL,
-  `NIS` char(10) DEFAULT NULL,
-  `id_Tes` tinyint(1) DEFAULT NULL,
-  `Waktu_Mulai` date DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- RELATIONSHIPS FOR TABLE `tes_ketuntasan_waktu`:
---
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `tes_ketuntasan_waktu_siswa`
 --
--- Creation: Nov 28, 2018 at 02:31 PM
+-- Creation: Dec 16, 2018 at 03:02 AM
 --
 
-DROP TABLE IF EXISTS `tes_ketuntasan_waktu_siswa`;
-CREATE TABLE `tes_ketuntasan_waktu_siswa` (
-  `id` tinyint(1) UNSIGNED NOT NULL,
+CREATE TABLE IF NOT EXISTS `tes_ketuntasan_waktu_siswa` (
+  `id` tinyint(1) UNSIGNED NOT NULL AUTO_INCREMENT,
   `NIS` char(10) NOT NULL,
   `id_Tes` tinyint(1) UNSIGNED NOT NULL,
-  `Waktu_Mulai` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `Waktu_Mulai` datetime NOT NULL,
+  `Status_Pengerjaan` enum('Belum Selesai','Sudah Selesai') NOT NULL DEFAULT 'Belum Selesai',
+  PRIMARY KEY (`id`),
+  KEY `fk_tes_ketuntasan_waktu_siswa_id_sesi` (`id_Tes`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 --
 -- RELATIONSHIPS FOR TABLE `tes_ketuntasan_waktu_siswa`:
 --   `id_Tes`
 --       `tes_ketuntasan` -> `id`
 --
+
+--
+-- Dumping data for table `tes_ketuntasan_waktu_siswa`
+--
+
+INSERT INTO `tes_ketuntasan_waktu_siswa` (`id`, `NIS`, `id_Tes`, `Waktu_Mulai`, `Status_Pengerjaan`) VALUES
+(2, '20191111', 1, '2019-01-01 20:12:00', 'Belum Selesai');
 
 -- --------------------------------------------------------
 
@@ -360,16 +370,17 @@ CREATE TABLE `tes_ketuntasan_waktu_siswa` (
 -- Creation: Nov 28, 2018 at 02:31 PM
 --
 
-DROP TABLE IF EXISTS `tes_pengayaan`;
-CREATE TABLE `tes_pengayaan` (
-  `id` tinyint(1) UNSIGNED NOT NULL,
+CREATE TABLE IF NOT EXISTS `tes_pengayaan` (
+  `id` tinyint(1) UNSIGNED NOT NULL AUTO_INCREMENT,
   `id_Sesi` tinyint(1) UNSIGNED NOT NULL,
   `Judul` varchar(100) NOT NULL,
   `Durasi` smallint(1) UNSIGNED NOT NULL,
   `Uraian` varchar(1000) NOT NULL,
   `Waktu_Mulai_tes` datetime NOT NULL,
-  `Waktu_Berakhir_tes` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `Waktu_Berakhir_tes` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `fk_tes_pengayaan_id_sesi` (`id_Sesi`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 
 --
 -- RELATIONSHIPS FOR TABLE `tes_pengayaan`:
@@ -397,12 +408,14 @@ INSERT INTO `tes_pengayaan` (`id`, `id_Sesi`, `Judul`, `Durasi`, `Uraian`, `Wakt
 -- Creation: Nov 28, 2018 at 02:31 PM
 --
 
-DROP TABLE IF EXISTS `tes_pengayaan_jawaban`;
-CREATE TABLE `tes_pengayaan_jawaban` (
-  `id` tinyint(1) UNSIGNED NOT NULL,
+CREATE TABLE IF NOT EXISTS `tes_pengayaan_jawaban` (
+  `id` tinyint(1) UNSIGNED NOT NULL AUTO_INCREMENT,
   `NIS` char(10) NOT NULL,
   `id_Soal` tinyint(1) UNSIGNED NOT NULL,
-  `Jawaban` varchar(1000) DEFAULT NULL
+  `Jawaban` varchar(1000) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_tes_pengayaan_jawaban_id_soal` (`id_Soal`),
+  KEY `fk_tes_pengayaan_jawaban_nis` (`NIS`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -421,13 +434,15 @@ CREATE TABLE `tes_pengayaan_jawaban` (
 -- Creation: Nov 28, 2018 at 02:31 PM
 --
 
-DROP TABLE IF EXISTS `tes_pengayaan_nilai`;
-CREATE TABLE `tes_pengayaan_nilai` (
-  `id` tinyint(1) UNSIGNED NOT NULL,
+CREATE TABLE IF NOT EXISTS `tes_pengayaan_nilai` (
+  `id` tinyint(1) UNSIGNED NOT NULL AUTO_INCREMENT,
   `NIS` char(10) NOT NULL,
   `id_Tes` tinyint(1) UNSIGNED NOT NULL,
   `Nilai_Pengayaan` tinyint(1) UNSIGNED NOT NULL,
-  `Status` enum('complete','not complete') NOT NULL
+  `Status` enum('complete','not complete') NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_tes_pengayaan_nilai_nis` (`NIS`),
+  KEY `fk_tes_pengayaan_nilai_id_tes` (`id_Tes`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -446,9 +461,8 @@ CREATE TABLE `tes_pengayaan_nilai` (
 -- Creation: Nov 28, 2018 at 02:31 PM
 --
 
-DROP TABLE IF EXISTS `tes_pengayaan_soal`;
-CREATE TABLE `tes_pengayaan_soal` (
-  `id` tinyint(1) UNSIGNED NOT NULL,
+CREATE TABLE IF NOT EXISTS `tes_pengayaan_soal` (
+  `id` tinyint(1) UNSIGNED NOT NULL AUTO_INCREMENT,
   `id_Tes` tinyint(1) UNSIGNED NOT NULL,
   `No_Soal` tinyint(1) UNSIGNED NOT NULL,
   `Pertanyaan` varchar(500) COLLATE latin1_bin NOT NULL,
@@ -456,8 +470,10 @@ CREATE TABLE `tes_pengayaan_soal` (
   `pilihan2` varchar(500) COLLATE latin1_bin NOT NULL,
   `pilihan3` varchar(500) COLLATE latin1_bin NOT NULL,
   `pilihan4` varchar(500) COLLATE latin1_bin NOT NULL,
-  `Kunci_Jawaban` varchar(1000) COLLATE latin1_bin NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_bin;
+  `Kunci_Jawaban` varchar(1000) COLLATE latin1_bin NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_tes_pengayaan_soal_id_tes` (`id_Tes`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1 COLLATE=latin1_bin;
 
 --
 -- RELATIONSHIPS FOR TABLE `tes_pengayaan_soal`:
@@ -479,37 +495,19 @@ INSERT INTO `tes_pengayaan_soal` (`id`, `id_Tes`, `No_Soal`, `Pertanyaan`, `pili
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tes_pengayaan_waktu`
---
--- Creation: Nov 28, 2018 at 02:31 PM
---
-
-DROP TABLE IF EXISTS `tes_pengayaan_waktu`;
-CREATE TABLE `tes_pengayaan_waktu` (
-  `id` tinyint(1) UNSIGNED NOT NULL,
-  `nis` char(10) NOT NULL,
-  `id_tes` tinyint(1) NOT NULL,
-  `waktu_mulai` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- RELATIONSHIPS FOR TABLE `tes_pengayaan_waktu`:
---
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `tes_pengayaan_waktu_siswa`
 --
 -- Creation: Nov 28, 2018 at 02:31 PM
 --
 
-DROP TABLE IF EXISTS `tes_pengayaan_waktu_siswa`;
-CREATE TABLE `tes_pengayaan_waktu_siswa` (
-  `id` tinyint(1) UNSIGNED NOT NULL,
+CREATE TABLE IF NOT EXISTS `tes_pengayaan_waktu_siswa` (
+  `id` tinyint(1) UNSIGNED NOT NULL AUTO_INCREMENT,
   `nis` char(10) NOT NULL,
   `id_tes` tinyint(1) UNSIGNED NOT NULL,
-  `waktu_mulai` datetime NOT NULL
+  `waktu_mulai` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_tes_pengayaan_waktu_siswa_id_tes` (`id_tes`),
+  KEY `fk_tes_pengayaan_waktu_siswa_nis` (`nis`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -528,9 +526,8 @@ CREATE TABLE `tes_pengayaan_waktu_siswa` (
 -- Creation: Dec 08, 2018 at 04:50 PM
 --
 
-DROP TABLE IF EXISTS `tugas_sesi_jawaban`;
-CREATE TABLE `tugas_sesi_jawaban` (
-  `id` smallint(1) UNSIGNED NOT NULL,
+CREATE TABLE IF NOT EXISTS `tugas_sesi_jawaban` (
+  `id` smallint(1) UNSIGNED NOT NULL AUTO_INCREMENT,
   `nis` char(10) NOT NULL,
   `id_soal` tinyint(1) UNSIGNED NOT NULL,
   `berkas_jawaban` varchar(60) NOT NULL,
@@ -538,8 +535,11 @@ CREATE TABLE `tugas_sesi_jawaban` (
   `komentar_guru` varchar(10000) DEFAULT NULL,
   `waktu_pengumpulan` datetime NOT NULL,
   `status_pengumpulan` enum('Terlambat','Tepat Waktu') DEFAULT NULL,
-  `nilai_tugas` tinyint(1) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `nilai_tugas` tinyint(1) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_tugas_sesi_jawaban_id_soal` (`id_soal`),
+  KEY `fk_tugas_sesi_jawaban_nis` (`nis`)
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=latin1;
 
 --
 -- RELATIONSHIPS FOR TABLE `tugas_sesi_jawaban`:
@@ -555,7 +555,7 @@ CREATE TABLE `tugas_sesi_jawaban` (
 
 INSERT INTO `tugas_sesi_jawaban` (`id`, `nis`, `id_soal`, `berkas_jawaban`, `komentar_siswa`, `komentar_guru`, `waktu_pengumpulan`, `status_pengumpulan`, `nilai_tugas`) VALUES
 (17, '20191111', 1, 'TGS_1_MPK01_20191111.ppt', 'Integritas Data PPT Percobaan 1', NULL, '2018-12-10 15:17:24', 'Terlambat', NULL),
-(18, '20191111', 2, 'TGS_2_MPK01_20191111.ppt', 'stored procedure ppt percobaan 2', NULL, '2018-12-10 16:35:51', 'Tepat Waktu', NULL),
+(18, '20191111', 2, 'TGS_2_MPK01_20191111.ppt', 'stored procedure ppt percobaan 2', NULL, '2018-12-16 07:31:13', 'Tepat Waktu', NULL),
 (19, '20191111', 4, 'TGS_4_MPK01_20191111.txt', 'tugas simbada txt percobaan 4', NULL, '2018-12-10 15:28:03', 'Terlambat', NULL);
 
 -- --------------------------------------------------------
@@ -566,15 +566,16 @@ INSERT INTO `tugas_sesi_jawaban` (`id`, `nis`, `id_soal`, `berkas_jawaban`, `kom
 -- Creation: Dec 10, 2018 at 07:36 AM
 --
 
-DROP TABLE IF EXISTS `tugas_sesi_soal`;
-CREATE TABLE `tugas_sesi_soal` (
-  `id` tinyint(1) UNSIGNED NOT NULL,
+CREATE TABLE IF NOT EXISTS `tugas_sesi_soal` (
+  `id` tinyint(1) UNSIGNED NOT NULL AUTO_INCREMENT,
   `id_sesi` tinyint(1) UNSIGNED NOT NULL,
   `soal` varchar(1000) NOT NULL,
   `file_soal` varchar(60) DEFAULT NULL,
   `waktu_mulai_tugas` datetime NOT NULL,
-  `waktu_deadline_tugas` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `waktu_deadline_tugas` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_tugas_sesi_soal_id_sesi` (`id_sesi`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 --
 -- RELATIONSHIPS FOR TABLE `tugas_sesi_soal`:
@@ -590,259 +591,8 @@ INSERT INTO `tugas_sesi_soal` (`id`, `id_sesi`, `soal`, `file_soal`, `waktu_mula
 (1, 1, 'Kerjakan Soal dalam file berikut, kerjakan dalam bentuk Word', 'TGS_1_Pemrograman_Web.pdf', '2018-12-01 00:00:00', '2018-12-02 00:00:00'),
 (2, 2, 'Kerjakan Soal dalam file berikut, kerjakan dalam bentuk Word', 'TGS_2_Pemrograman_Web.pdf', '2018-12-09 00:00:00', '2019-01-31 00:00:00'),
 (3, 3, 'Kerjakan Soal dalam file berikut, kerjakan dalam bentuk Word', 'TGS_3_Pemrograman_Web.pdf', '2019-02-01 00:00:00', '2019-02-28 00:00:00'),
-(4, 4, 'Kerjakan Soal dalam file berikut, kerjakan dalam bentuk Word', 'TGS_4_Pemrograman_Web.pdf', '2018-12-01 00:00:00', '2018-12-10 15:34:00');
-
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `admin`
---
-ALTER TABLE `admin`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `username` (`username`);
-
---
--- Indexes for table `mata_pelajaran`
---
-ALTER TABLE `mata_pelajaran`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `kd_Mapel` (`kd_Mapel`) USING BTREE;
-
---
--- Indexes for table `nilai_akhir`
---
-ALTER TABLE `nilai_akhir`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_nilai_akhir_nis` (`NIS`),
-  ADD KEY `fk_nilai_akhir_id_mapel` (`id_Mapel`);
-
---
--- Indexes for table `sesi_pembelajaran`
---
-ALTER TABLE `sesi_pembelajaran`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_sesi_pembelajaran_id_mapel` (`id_mapel`);
-
---
--- Indexes for table `siswa`
---
-ALTER TABLE `siswa`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `NIS` (`NIS`) USING BTREE;
-
---
--- Indexes for table `tes_ketuntasan`
---
-ALTER TABLE `tes_ketuntasan`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `fk_tes_ketuntasan_id_sesi` (`id_Sesi`) USING BTREE;
-
---
--- Indexes for table `tes_ketuntasan_jawaban`
---
-ALTER TABLE `tes_ketuntasan_jawaban`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_tes_ketuntasan_jawaban_nis` (`NIS`),
-  ADD KEY `fk_tes_ketuntasan_jawaban_id_soal` (`id_Soal`);
-
---
--- Indexes for table `tes_ketuntasan_nilai`
---
-ALTER TABLE `tes_ketuntasan_nilai`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_tes_ketuntasan_nilai_nis` (`NIS`),
-  ADD KEY `fk_tes_ketuntasan_nilai_id_tes` (`id_Tes`);
-
---
--- Indexes for table `tes_ketuntasan_soal`
---
-ALTER TABLE `tes_ketuntasan_soal`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_tes_ketuntasan_soal_id_sesi` (`id_Tes`) USING BTREE;
-
---
--- Indexes for table `tes_ketuntasan_waktu`
---
-ALTER TABLE `tes_ketuntasan_waktu`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_ketuntasan_waktu_nis` (`NIS`),
-  ADD KEY `fk_ketuntasan_waktu_idtes` (`id_Tes`);
-
---
--- Indexes for table `tes_ketuntasan_waktu_siswa`
---
-ALTER TABLE `tes_ketuntasan_waktu_siswa`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_tes_ketuntasan_waktu_siswa_id_sesi` (`id_Tes`);
-
---
--- Indexes for table `tes_pengayaan`
---
-ALTER TABLE `tes_pengayaan`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `fk_tes_pengayaan_id_sesi` (`id_Sesi`) USING BTREE;
-
---
--- Indexes for table `tes_pengayaan_jawaban`
---
-ALTER TABLE `tes_pengayaan_jawaban`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_tes_pengayaan_jawaban_id_soal` (`id_Soal`),
-  ADD KEY `fk_tes_pengayaan_jawaban_nis` (`NIS`);
-
---
--- Indexes for table `tes_pengayaan_nilai`
---
-ALTER TABLE `tes_pengayaan_nilai`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_tes_pengayaan_nilai_nis` (`NIS`),
-  ADD KEY `fk_tes_pengayaan_nilai_id_tes` (`id_Tes`);
-
---
--- Indexes for table `tes_pengayaan_soal`
---
-ALTER TABLE `tes_pengayaan_soal`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_tes_pengayaan_soal_id_tes` (`id_Tes`);
-
---
--- Indexes for table `tes_pengayaan_waktu`
---
-ALTER TABLE `tes_pengayaan_waktu`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_pengayaan_waktu_nis` (`nis`),
-  ADD KEY `fk_pengayaan_waktu_idtes` (`id_tes`);
-
---
--- Indexes for table `tes_pengayaan_waktu_siswa`
---
-ALTER TABLE `tes_pengayaan_waktu_siswa`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_tes_pengayaan_waktu_siswa_id_tes` (`id_tes`),
-  ADD KEY `fk_tes_pengayaan_waktu_siswa_nis` (`nis`);
-
---
--- Indexes for table `tugas_sesi_jawaban`
---
-ALTER TABLE `tugas_sesi_jawaban`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_tugas_sesi_jawaban_id_soal` (`id_soal`),
-  ADD KEY `fk_tugas_sesi_jawaban_nis` (`nis`);
-
---
--- Indexes for table `tugas_sesi_soal`
---
-ALTER TABLE `tugas_sesi_soal`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_tugas_sesi_soal_id_sesi` (`id_sesi`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `admin`
---
-ALTER TABLE `admin`
-  MODIFY `id` tinyint(1) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
--- AUTO_INCREMENT for table `mata_pelajaran`
---
-ALTER TABLE `mata_pelajaran`
-  MODIFY `id` tinyint(1) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
--- AUTO_INCREMENT for table `nilai_akhir`
---
-ALTER TABLE `nilai_akhir`
-  MODIFY `id` tinyint(1) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `sesi_pembelajaran`
---
-ALTER TABLE `sesi_pembelajaran`
-  MODIFY `id` tinyint(1) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
---
--- AUTO_INCREMENT for table `siswa`
---
-ALTER TABLE `siswa`
-  MODIFY `id` tinyint(1) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT for table `tes_ketuntasan`
---
-ALTER TABLE `tes_ketuntasan`
-  MODIFY `id` tinyint(1) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
---
--- AUTO_INCREMENT for table `tes_ketuntasan_jawaban`
---
-ALTER TABLE `tes_ketuntasan_jawaban`
-  MODIFY `id` smallint(1) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `tes_ketuntasan_nilai`
---
-ALTER TABLE `tes_ketuntasan_nilai`
-  MODIFY `id` tinyint(1) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT for table `tes_ketuntasan_soal`
---
-ALTER TABLE `tes_ketuntasan_soal`
-  MODIFY `id` tinyint(1) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
--- AUTO_INCREMENT for table `tes_ketuntasan_waktu_siswa`
---
-ALTER TABLE `tes_ketuntasan_waktu_siswa`
-  MODIFY `id` tinyint(1) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `tes_pengayaan`
---
-ALTER TABLE `tes_pengayaan`
-  MODIFY `id` tinyint(1) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
-
---
--- AUTO_INCREMENT for table `tes_pengayaan_jawaban`
---
-ALTER TABLE `tes_pengayaan_jawaban`
-  MODIFY `id` tinyint(1) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `tes_pengayaan_nilai`
---
-ALTER TABLE `tes_pengayaan_nilai`
-  MODIFY `id` tinyint(1) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `tes_pengayaan_soal`
---
-ALTER TABLE `tes_pengayaan_soal`
-  MODIFY `id` tinyint(1) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
--- AUTO_INCREMENT for table `tes_pengayaan_waktu_siswa`
---
-ALTER TABLE `tes_pengayaan_waktu_siswa`
-  MODIFY `id` tinyint(1) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `tugas_sesi_jawaban`
---
-ALTER TABLE `tugas_sesi_jawaban`
-  MODIFY `id` smallint(1) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
-
---
--- AUTO_INCREMENT for table `tugas_sesi_soal`
---
-ALTER TABLE `tugas_sesi_soal`
-  MODIFY `id` tinyint(1) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+(4, 4, 'Kerjakan Soal dalam file berikut, kerjakan dalam bentuk Word', 'TGS_4_Pemrograman_Web.pdf', '2018-12-01 00:00:00', '2018-12-10 15:34:00'),
+(5, 5, 'Kerjakan Soal dalam file berikut, kerjakan dalam bentuk Word', 'TGS_5_Pemrograman_Web.pdf', '2018-12-01 00:00:00', '2019-02-28 00:00:00');
 
 --
 -- Constraints for dumped tables

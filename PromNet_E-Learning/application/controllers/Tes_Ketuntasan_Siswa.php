@@ -17,17 +17,14 @@ class Tes_Ketuntasan_Siswa extends CI_Controller {
 		}
 	}
 
-	public function Jawaban_Tambah($value='')
-	{
-		if($this->session->userdata('user') != 'siswa') {
-			redirect('login');
-		}else{
-			print_r($_POST);
-
-			//$this->load->model('M_Tes_Ketuntasan_Jawaban');
-			//$this->M_Tes_Ketuntasan_Jawaban->insert($data);
-
-		}
-	}
+	// public function Ubah_Jawaban()
+	// {
+	// 	if($this->session->userdata('user') != 'siswa') {
+	// 		redirect('login');
+	// 	}else{
+	// 		$this->load->model('M_Tes_Ketuntasan_Jawaban');
+	// 		$this->M_Tes_Ketuntasan_Jawaban->Ubah_Jawaban($this->input->post('array_form'));
+	// 	}
+	// }
 
 }
