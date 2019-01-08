@@ -36,7 +36,7 @@
                 </tr>
               </thead>
               <tbody>
-                <form class="" action="<?php echo site_url('Tes_Ketuntasan_Jawaban_Siswa/tes');?>" method="post">
+                <form id="form_tes" action="<?php echo site_url('Tes_Ketuntasan_Jawaban_Siswa/tes');?>" method="post">
 
                   <!-- jika data Soal Tidak ada, maka setting jumlah soal = 0 -->
                   <?php if (empty($tes_ketuntasan_soal)): ?>
@@ -71,9 +71,12 @@
                   ?>
               </tbody>
             </table>
-            <div align ="center"><input class="btn btn-info" role="button" type="submit" name="simpan" value="Submit"></div>
+            <div align ="center"> <input class="btn btn-info" role="button" type="submit" name="simpan" value="Submit"></div>
+            <!-- untuk menampilkan error melalui javascript jika saat submit, soal masih kosong -->
+            <div align ="center"> <h5 id="error"></h5> </div>
+
           </form>
-          <!-- <?php //print_r($this->session->hasil);?> -->
+          <!-- <?php //print_r($this->session->array_form);?> -->
 
         <!-- <div id="demo">
 
@@ -110,7 +113,24 @@
 
   </div>
 
-
+  <!-- Edit Modal HTML -->
+  <div id="modal_konfirmasi_submit" class="modal fade" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog">
+      <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Konfirmasi</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          </div>
+          <div class="modal-body">
+            <h5>Apakah anda sudah yakin?</h5>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            <button id="konfirmasi_ok" type="button" class="btn btn-success" data-dismiss="modal">Ok</button>
+          </div>
+      </div>
+    </div>
+  </div>
 
   <?php $this->load->view('javascript.php'); ?>
 
@@ -137,12 +157,12 @@
         $.ajax({
           url:"http://localhost/PromNet_E-Learning/index.php/Tes_Ketuntasan_Jawaban_Siswa/Ambil_Jawaban",
           method:"post",
-          data:{id_setiap_soal:id_soal, jumlah_soal:jumlah_soal},
+          data:{id_setiap_soal:id_soal},
           success:function(data){
 
             var $i = 1;
             jQuery.each(jQuery.parseJSON(data), function (Key, Value) {
-              $("#demo").append(Key + Value.Jawaban + " ");
+              //$("#demo").append(Key + Value.Jawaban + " ");
               if (Value.Jawaban == "Benar") {
                 $("#benar"+$i).attr("checked", "checked");
               }else if (Value.Jawaban == "Salah") {
@@ -157,8 +177,8 @@
 
       //untuk autoupdate setiap jawaban setiap 10 detik
       var auto_update = setInterval(function () {
-
         var isi_form = $("form").serializeArray();
+        //console.table(isi_form)
         $.ajax({
           url:"http://localhost/PromNet_E-Learning/index.php/Tes_Ketuntasan_Jawaban_Siswa/Ubah_Jawaban",
           method:"post",
@@ -168,6 +188,41 @@
           // }
         });
       }, 10000);
+
+      //untuk proses submit
+      var isi_form
+
+      $( "#form_tes" ).submit(function() {
+        if ( jumlah_soal > 0) {
+          if ($("#modal_konfirmasi_submit").modal() == false) {
+            $("#modal_konfirmasi_submit").modal("show");
+          }
+        }else{
+          $( "#error" ).text( "Soal tidak boleh kosong" ).show().fadeOut( 3000 );
+        }
+        event.preventDefault();
+      });
+
+      $('#konfirmasi_ok').click(function () {
+        clearInterval(auto_update);
+        //mengambil semua data form yang terisi
+        var isi_form = $("form").serializeArray();
+        //membuat form tidak dapat diakses atau dimanipulasi olehu user
+        $("input").attr("disabled", true);
+        //mengambil id_tes pada tes_ketuntasan saat ini
+        var id_tes = $("#id_tes").attr("id_tes");
+        //mengambil kd_mapel yang terdapat pada URL halaman ini
+        var kd_mapel = $('#selesai').attr("name");
+        $.ajax({
+          url: "http://localhost/PromNet_E-Learning/index.php/Tes_Ketuntasan_Jawaban_Siswa/Submit",
+          method: "post",
+          data: {array_form:isi_form, id_tes:id_tes, kd_mapel:kd_mapel},
+          success: function (data) {
+            // console.log(data);
+            $('#selesai').html(data);
+          }
+        })
+      })
 
 
       // console.log(id_tes);
@@ -212,8 +267,10 @@
             if (distance < 0) {
               //fungsi menghentikan perintah Waktu Hitung Mundur yang dimasukkan pada variable x
               clearInterval(x);
+
               //fungsi menghentikan perintah auto update jawaban setiap 10 detik yang dimasukkan pada variable auto_update
-              clearInterval(auto_update);
+              //clearInterval(auto_update); ini tidak bisa kita hapus, karena tidak akan terdeteksi
+              //console.log(clearInterval(auto_update));
 
               document.getElementById("tempat_waktu_tersisa").innerHTML = "Waktu Habis";
 

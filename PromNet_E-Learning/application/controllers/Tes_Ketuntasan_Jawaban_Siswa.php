@@ -39,6 +39,7 @@ class Tes_Ketuntasan_Jawaban_Siswa extends CI_Controller {
 		}else{
 			$this->load->model('M_Tes_Ketuntasan_Jawaban');
 			$this->M_Tes_Ketuntasan_Jawaban->Ubah_Jawaban($this->input->post('array_form'));
+			//$this->session->set_userdata('array_form', $this->input->post('array_form'));
 		}
 	}
 
