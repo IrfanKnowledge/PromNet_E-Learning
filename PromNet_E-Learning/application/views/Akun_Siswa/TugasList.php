@@ -25,7 +25,7 @@
           <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 
-              <h1 align ="center"><?php echo $this->session->mata_pelajaran['Nama_Mapel']; ?></h1>
+              <h1 align ="center"><?php if (!empty($nama_mapel)){  echo $nama_mapel->nama_mapel; }?></h1>
 
             <table class="table table-bordered table-hover" align ="center">
                 <thead class="thead-dark">

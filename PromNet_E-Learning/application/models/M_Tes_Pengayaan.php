@@ -10,36 +10,40 @@ class M_Tes_Pengayaan extends CI_Model {
   }
 
   /*
-  function selectById($id){
+  public function selectById($id)
+  {
 		$this->db->select('*');
 		$this->db->from('tes_pengayaan');
 		$this->db->where('id',$id);
 
 		return $this->db->get();
-	}
-  */
+	 }
+   */
 
-  public function getById($id_mapel = -1)
-  {
-    $this->db->select('id');
-    $this->db->from('sesi_pembelajaran');
-    $this->db->where('id_mapel', $id_mapel);
-    $sesi_pembelajaran = $this->db->get()->result();
+   public function getById($id_mapel = -1)
+   {
+     $this->db->select('id, Sesi_Ke');
+     $this->db->from('sesi_pembelajaran');
+     $this->db->where('id_mapel', $id_mapel);
+     $sesi_pembelajaran = $this->db->get()->result();
 
-    foreach ($sesi_pembelajaran as $record) {
-      $this->db->select('*');
-      $this->db->from('tes_pengayaan');
-      $this->db->where('id_Sesi', $record->id);
+     foreach ($sesi_pembelajaran as $record) {
+       $this->db->select('*');
+       $this->db->from('tes_pengayaan');
+       $this->db->where('id_Sesi', $record->id);
 
-      $temp = $this->db->get()->row();
-      if (!empty($temp)) {              // cek apakah $temp tidak kosong? jika tidak kosong lakukan aksi berikut
-        $tes_pengayaan[] = $temp;
-      }
-    }
-    if (empty($tes_pengayaan)) {
-      $tes_pengayaan = -1;
-    }
+       $temp_test_pengayaan = $this->db->get()->row_array();
+       $temp_sesi_ke['sesi_ke'] = $record->Sesi_Ke;
 
-    return $tes_pengayaan;
-  }
+       if (!empty($temp_test_pengayaan)) {              // cek apakah $temp_test_pengayaan tidak kosong? jika tidak kosong lakukan aksi berikut
+         $tes_pengayaan[] = (object) array_merge($temp_test_pengayaan, $temp_sesi_ke);
+       }
+     }
+
+     if (empty($sesi_pembelajaran)) {
+       $tes_pengayaan = -1;
+     }
+
+     return $tes_pengayaan;
+   }
 }

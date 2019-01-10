@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 02, 2019 at 08:05 AM
+-- Generation Time: Jan 10, 2019 at 01:33 PM
 -- Server version: 10.1.37-MariaDB
 -- PHP Version: 7.2.12
 
@@ -81,7 +81,7 @@ INSERT INTO `mata_pelajaran` (`id`, `kd_Mapel`, `Nama_Mapel`, `Jam_Pembelajaran`
 (1, 'MPK01', 'Pemrograman Web', 2),
 (2, 'MPK02', 'Pemrograman Dasar', 3),
 (3, 'MPU01', 'Bahasa Indonesia', 2),
-(4, 'MPU02', 'Bahasa Inggris', 2);
+(4, 'MPU02', 'Bahasa Inggris', 3);
 
 -- --------------------------------------------------------
 
@@ -117,7 +117,7 @@ CREATE TABLE IF NOT EXISTS `nilai_akhir` (
 --
 -- Table structure for table `sesi_pembelajaran`
 --
--- Creation: Dec 09, 2018 at 07:36 AM
+-- Creation: Jan 08, 2019 at 04:07 PM
 --
 
 CREATE TABLE IF NOT EXISTS `sesi_pembelajaran` (
@@ -130,6 +130,7 @@ CREATE TABLE IF NOT EXISTS `sesi_pembelajaran` (
   `Konten2` varchar(60) DEFAULT NULL,
   `Konten3` varchar(60) DEFAULT NULL,
   PRIMARY KEY (`id`),
+  UNIQUE KEY `Sesi_Ke` (`Sesi_Ke`),
   KEY `fk_sesi_pembelajaran_id_mapel` (`id_mapel`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
@@ -235,7 +236,7 @@ CREATE TABLE IF NOT EXISTS `tes_ketuntasan_jawaban` (
   PRIMARY KEY (`id`),
   KEY `fk_tes_ketuntasan_jawaban_nis` (`NIS`),
   KEY `fk_tes_ketuntasan_jawaban_id_soal` (`id_Soal`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=61 DEFAULT CHARSET=latin1;
 
 --
 -- RELATIONSHIPS FOR TABLE `tes_ketuntasan_jawaban`:
@@ -250,30 +251,29 @@ CREATE TABLE IF NOT EXISTS `tes_ketuntasan_jawaban` (
 --
 
 INSERT INTO `tes_ketuntasan_jawaban` (`id`, `NIS`, `id_Soal`, `Jawaban`) VALUES
-(1, '20191111', 1, 'Benar'),
-(2, '20191111', 2, 'Benar'),
-(3, '20191111', 3, 'Benar'),
-(4, '20191111', 4, 'Benar'),
-(5, '20191111', 5, 'Benar');
+(56, '20191111', 1, 'Benar'),
+(57, '20191111', 2, 'Benar'),
+(58, '20191111', 3, 'Benar'),
+(59, '20191111', 4, 'Benar'),
+(60, '20191111', 5, 'Salah');
 
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `tes_ketuntasan_nilai`
 --
--- Creation: Nov 28, 2018 at 02:31 PM
+-- Creation: Jan 10, 2019 at 05:00 AM
 --
 
 CREATE TABLE IF NOT EXISTS `tes_ketuntasan_nilai` (
   `id` tinyint(1) UNSIGNED NOT NULL AUTO_INCREMENT,
   `NIS` char(10) NOT NULL,
   `id_Tes` tinyint(1) UNSIGNED NOT NULL,
-  `Nilai_Tes` tinyint(1) UNSIGNED DEFAULT NULL,
-  `Status` enum('complete','not complete') NOT NULL,
+  `Nilai_Tes` tinyint(1) UNSIGNED NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_tes_ketuntasan_nilai_nis` (`NIS`),
   KEY `fk_tes_ketuntasan_nilai_id_tes` (`id_Tes`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 
 --
 -- RELATIONSHIPS FOR TABLE `tes_ketuntasan_nilai`:
@@ -287,10 +287,9 @@ CREATE TABLE IF NOT EXISTS `tes_ketuntasan_nilai` (
 -- Dumping data for table `tes_ketuntasan_nilai`
 --
 
-INSERT INTO `tes_ketuntasan_nilai` (`id`, `NIS`, `id_Tes`, `Nilai_Tes`, `Status`) VALUES
-(1, '20191111', 1, 0, 'not complete'),
-(2, '20191112', 1, 100, 'complete'),
-(3, '20191113', 1, 0, 'not complete');
+INSERT INTO `tes_ketuntasan_nilai` (`id`, `NIS`, `id_Tes`, `Nilai_Tes`) VALUES
+(6, '20191111', 1, 40),
+(7, '20191111', 1, 40);
 
 -- --------------------------------------------------------
 
@@ -347,7 +346,7 @@ CREATE TABLE IF NOT EXISTS `tes_ketuntasan_waktu_siswa` (
   `Status_Pengerjaan` enum('Belum Selesai','Sudah Selesai') NOT NULL DEFAULT 'Belum Selesai',
   PRIMARY KEY (`id`),
   KEY `fk_tes_ketuntasan_waktu_siswa_id_sesi` (`id_Tes`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=latin1;
 
 --
 -- RELATIONSHIPS FOR TABLE `tes_ketuntasan_waktu_siswa`:
@@ -360,7 +359,7 @@ CREATE TABLE IF NOT EXISTS `tes_ketuntasan_waktu_siswa` (
 --
 
 INSERT INTO `tes_ketuntasan_waktu_siswa` (`id`, `NIS`, `id_Tes`, `Waktu_Mulai`, `Status_Pengerjaan`) VALUES
-(2, '20191111', 1, '2019-01-01 20:12:00', 'Belum Selesai');
+(19, '20191111', 1, '2019-01-10 15:13:24', 'Sudah Selesai');
 
 -- --------------------------------------------------------
 
@@ -393,7 +392,7 @@ CREATE TABLE IF NOT EXISTS `tes_pengayaan` (
 --
 
 INSERT INTO `tes_pengayaan` (`id`, `id_Sesi`, `Judul`, `Durasi`, `Uraian`, `Waktu_Mulai_tes`, `Waktu_Berakhir_tes`) VALUES
-(1, 1, '\"Profesi dalam Pengembangan Aplikasi Web\"', 30, '\"Pilihlah jawaban Benar atau Salah pada Soal dalam Tes Pengayaan ini\"', '2018-11-29 14:00:00', '2018-11-30 23:00:00'),
+(1, 1, '\"Profesi dalam Pengembangan Aplikasi Web\"', 30, '\"Pilihlah jawaban Benar atau Salah pada Soal dalam Tes Pengayaan ini\"', '2019-01-01 01:00:00', '2019-02-20 23:00:00'),
 (3, 2, '\"Alur dan Perangkat Pengembangan  Aplikasi Web\"', 30, '\"Pilihlah jawaban Benar atau Salah \r\npada Soal dalam Tes Pengayaan Ini\"\r\n', '2018-11-28 16:00:00', '2018-11-28 21:00:00'),
 (4, 3, '\"Menyajikan Format Teks  dalam Dokumen Web\"', 30, '\"Pilihlah jawaban Benar atau Salah \r\npada Soal dalam Tes Pengayaan Ini\"', '2018-11-29 05:00:00', '2018-11-30 18:00:00'),
 (5, 4, '\"Menyajikan Pemformatan  Teks dan Paragraf Web\"', 30, '\"Pilihlah jawaban Benar atau Salah \r\npada Soal dalam Tes Pengayaan Ini\"', '2018-11-29 06:00:00', '2018-11-30 22:00:00'),
@@ -416,7 +415,7 @@ CREATE TABLE IF NOT EXISTS `tes_pengayaan_jawaban` (
   PRIMARY KEY (`id`),
   KEY `fk_tes_pengayaan_jawaban_id_soal` (`id_Soal`),
   KEY `fk_tes_pengayaan_jawaban_nis` (`NIS`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=56 DEFAULT CHARSET=latin1;
 
 --
 -- RELATIONSHIPS FOR TABLE `tes_pengayaan_jawaban`:
@@ -426,24 +425,34 @@ CREATE TABLE IF NOT EXISTS `tes_pengayaan_jawaban` (
 --       `siswa` -> `NIS`
 --
 
+--
+-- Dumping data for table `tes_pengayaan_jawaban`
+--
+
+INSERT INTO `tes_pengayaan_jawaban` (`id`, `NIS`, `id_Soal`, `Jawaban`) VALUES
+(51, '20191111', 1, 'Salah'),
+(52, '20191111', 2, 'Salah'),
+(53, '20191111', 3, 'Salah'),
+(54, '20191111', 4, 'Benar'),
+(55, '20191111', 5, 'Benar');
+
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `tes_pengayaan_nilai`
 --
--- Creation: Nov 28, 2018 at 02:31 PM
+-- Creation: Jan 10, 2019 at 07:37 AM
 --
 
 CREATE TABLE IF NOT EXISTS `tes_pengayaan_nilai` (
   `id` tinyint(1) UNSIGNED NOT NULL AUTO_INCREMENT,
   `NIS` char(10) NOT NULL,
   `id_Tes` tinyint(1) UNSIGNED NOT NULL,
-  `Nilai_Pengayaan` tinyint(1) UNSIGNED NOT NULL,
-  `Status` enum('complete','not complete') NOT NULL,
+  `Nilai_Tes` tinyint(1) UNSIGNED NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_tes_pengayaan_nilai_nis` (`NIS`),
   KEY `fk_tes_pengayaan_nilai_id_tes` (`id_Tes`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
 --
 -- RELATIONSHIPS FOR TABLE `tes_pengayaan_nilai`:
@@ -453,27 +462,35 @@ CREATE TABLE IF NOT EXISTS `tes_pengayaan_nilai` (
 --       `siswa` -> `NIS`
 --
 
+--
+-- Dumping data for table `tes_pengayaan_nilai`
+--
+
+INSERT INTO `tes_pengayaan_nilai` (`id`, `NIS`, `id_Tes`, `Nilai_Tes`) VALUES
+(5, '20191111', 1, 40),
+(6, '20191111', 1, 40);
+
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `tes_pengayaan_soal`
 --
--- Creation: Nov 28, 2018 at 02:31 PM
+-- Creation: Jan 10, 2019 at 06:27 AM
 --
 
 CREATE TABLE IF NOT EXISTS `tes_pengayaan_soal` (
   `id` tinyint(1) UNSIGNED NOT NULL AUTO_INCREMENT,
   `id_Tes` tinyint(1) UNSIGNED NOT NULL,
   `No_Soal` tinyint(1) UNSIGNED NOT NULL,
-  `Pertanyaan` varchar(500) COLLATE latin1_bin NOT NULL,
-  `pilihan1` varchar(500) COLLATE latin1_bin NOT NULL,
-  `pilihan2` varchar(500) COLLATE latin1_bin NOT NULL,
-  `pilihan3` varchar(500) COLLATE latin1_bin NOT NULL,
-  `pilihan4` varchar(500) COLLATE latin1_bin NOT NULL,
-  `Kunci_Jawaban` varchar(1000) COLLATE latin1_bin NOT NULL,
+  `Pertanyaan` varchar(500) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL,
+  `pilihan1` varchar(500) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL,
+  `pilihan2` varchar(500) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL,
+  `pilihan3` varchar(500) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL,
+  `pilihan4` varchar(500) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL,
+  `Kunci_Jawaban` varchar(1000) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_tes_pengayaan_soal_id_tes` (`id_Tes`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1 COLLATE=latin1_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 --
 -- RELATIONSHIPS FOR TABLE `tes_pengayaan_soal`:
@@ -497,7 +514,7 @@ INSERT INTO `tes_pengayaan_soal` (`id`, `id_Tes`, `No_Soal`, `Pertanyaan`, `pili
 --
 -- Table structure for table `tes_pengayaan_waktu_siswa`
 --
--- Creation: Nov 28, 2018 at 02:31 PM
+-- Creation: Jan 10, 2019 at 07:29 AM
 --
 
 CREATE TABLE IF NOT EXISTS `tes_pengayaan_waktu_siswa` (
@@ -505,10 +522,11 @@ CREATE TABLE IF NOT EXISTS `tes_pengayaan_waktu_siswa` (
   `nis` char(10) NOT NULL,
   `id_tes` tinyint(1) UNSIGNED NOT NULL,
   `waktu_mulai` datetime NOT NULL,
+  `Status_Pengerjaan` enum('Belum Selesai','Sudah Selesai') NOT NULL DEFAULT 'Belum Selesai',
   PRIMARY KEY (`id`),
   KEY `fk_tes_pengayaan_waktu_siswa_id_tes` (`id_tes`),
   KEY `fk_tes_pengayaan_waktu_siswa_nis` (`nis`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 --
 -- RELATIONSHIPS FOR TABLE `tes_pengayaan_waktu_siswa`:
@@ -517,6 +535,13 @@ CREATE TABLE IF NOT EXISTS `tes_pengayaan_waktu_siswa` (
 --   `nis`
 --       `siswa` -> `NIS`
 --
+
+--
+-- Dumping data for table `tes_pengayaan_waktu_siswa`
+--
+
+INSERT INTO `tes_pengayaan_waktu_siswa` (`id`, `nis`, `id_tes`, `waktu_mulai`, `Status_Pengerjaan`) VALUES
+(5, '20191111', 1, '2019-01-10 15:23:58', 'Sudah Selesai');
 
 -- --------------------------------------------------------
 
@@ -555,7 +580,7 @@ CREATE TABLE IF NOT EXISTS `tugas_sesi_jawaban` (
 
 INSERT INTO `tugas_sesi_jawaban` (`id`, `nis`, `id_soal`, `berkas_jawaban`, `komentar_siswa`, `komentar_guru`, `waktu_pengumpulan`, `status_pengumpulan`, `nilai_tugas`) VALUES
 (17, '20191111', 1, 'TGS_1_MPK01_20191111.ppt', 'Integritas Data PPT Percobaan 1', NULL, '2018-12-10 15:17:24', 'Terlambat', NULL),
-(18, '20191111', 2, 'TGS_2_MPK01_20191111.ppt', 'stored procedure ppt percobaan 2', NULL, '2018-12-16 07:31:13', 'Tepat Waktu', NULL),
+(18, '20191111', 2, 'TGS_2_MPK01_20191111.docx', 'stored procedure ppt percobaan 2', NULL, '2019-01-10 19:00:15', 'Tepat Waktu', NULL),
 (19, '20191111', 4, 'TGS_4_MPK01_20191111.txt', 'tugas simbada txt percobaan 4', NULL, '2018-12-10 15:28:03', 'Terlambat', NULL);
 
 -- --------------------------------------------------------

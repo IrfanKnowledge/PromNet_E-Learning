@@ -8,6 +8,9 @@ class Tes_Ketuntasan_Soal_Siswa extends CI_Controller
         if ($this->session->userdata('user') != 'siswa') {
             redirect('login');
         } else {
+            $this->load->model('M_Mata_Pelajaran');
+            $data['nama_mapel'] = $this->M_Mata_Pelajaran->Tampilkan_Nama_MaPel($this->uri->segment(3, -1))->row();
+
             $this->load->model('M_Tes_Ketuntasan_Soal');
 
             $id_tes = $this->M_Tes_Ketuntasan_Soal->getIdTes($kd_mapel, $sesi_ke);

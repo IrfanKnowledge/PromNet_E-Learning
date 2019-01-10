@@ -1,23 +1,11 @@
-<!doctype html>
+<!DOCTYPE html>
 <html class="no-js" lang="en">
 
 <head>
   <?php $this->load->view('head.php') ?>
-  <script>
-      function setup() {
-          document.getElementById('buttonid').addEventListener('click', openDialog);
-          function openDialog() {
-              document.getElementById('fileid').click();
-          }
-          document.getElementById('fileid').addEventListener('change', submitForm);
-          function submitForm() {
-              document.getElementById('formid').submit();
-          }
-      }
-  </script>
 </head>
 
-<body onload="setup()">
+<body>
   <!--[if lt IE 8]>
       <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
   <![endif]-->
@@ -36,7 +24,7 @@
       <div class="container-fluid">
           <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-              <h1 align ="center"><?php echo $this->session->mata_pelajaran['Nama_Mapel']; ?></h1>
+              <h1 align ="center"><?php if (!empty($nama_mapel)){  echo $nama_mapel->nama_mapel; }?></h1>
 
             <table class="table table-bordered table-hover" align ="center">
                 <thead class="thead-dark">
@@ -138,7 +126,9 @@
                                       <br><br>
 
                                       <div align="center">
-                                        <input id='fileid' type="file" name="userfile" size="10" hidden/>
+                                        <input id='fileid' type="file" name="userfile" size="20" hidden/>
+                                        <label id="name_file" for="fileid">Choose new file to change</label>
+                                        <br><br>
                                         <button id='buttonid' type="button" name="button" class="btn btn-primary">Edit</button>
                                         <input type="submit" name="submit" value="Submit" class="btn btn-primary">
                                       </div>
@@ -158,7 +148,7 @@
                               <?php $no = 1;?>
                               <tr class="table-primary">
                                 <td><?php echo $no; ?></td>
-                                <td><?php echo $tugas_sesi_jawaban->berkas_jawaban; ?></td>
+                                <td><a href="<?php echo site_url('Tugas_Sesi_Jawaban_Siswa/Download/' . $tugas_sesi_jawaban->berkas_jawaban) ?>" class="text-danger"><?php echo $tugas_sesi_jawaban->berkas_jawaban; ?></a></td>
                                 <td><?php echo $tugas_sesi_jawaban->komentar_siswa; ?></td>
                                 <td><?php echo $tugas_sesi_jawaban->komentar_guru; ?></td>
                                 <td align="center"><?php echo $tugas_sesi_jawaban->waktu_pengumpulan; ?></td>
@@ -184,10 +174,16 @@
                         <tr class="table-primary">
                           <input type="hidden" name="waktu_deadline_tugas" value="<?php echo $tugas_sesi_soal->waktu_deadline_tugas ?>">
                           <td><?php echo $no; ?></td>
-                          <td><input type="file" name="userfile" size="10">
-                            <br>
-                            <input type="submit" value="kirim">
+                          <td>
+                            <div align="center">
+                            <input id='fileid' type="file" name="userfile" size="20" hidden/>
+                            <label id="name_file" for="fileid">Choose new file to change</label>
+                            <br><br>
+                            <button id='buttonid' type="button" name="button" class="btn btn-primary">Choose File</button>
+                            <input type="submit" name="submit" value="Submit" class="btn btn-primary">
+                          </div>
                           </td>
+
                           <td><textarea name="komentar_siswa" rows="4" cols="30"></textarea> </td>
                           <td></td>
                           <td></td>
@@ -211,6 +207,19 @@
 
 
   <?php $this->load->view('javascript.php'); ?>
+<script type="text/javascript">
+
+  $('#buttonid').on("click", function () {
+    $('#fileid').click();
+    //document.getElementById('fileid').click();
+  })
+  $('#fileid').on("change", function () {
+    $('#name_file').text($('#fileid').val().slice(12));
+    if ($('#fileid').val() == "") {
+      $('#name_file').text("Choose new file to change");
+    }
+  })
+</script>
 </body>
 
 </html>

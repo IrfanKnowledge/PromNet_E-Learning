@@ -8,6 +8,8 @@ class Tugas_Sesi_Jawaban_Siswa extends CI_Controller {
 		if($this->session->userdata('user') != 'siswa') {
 			redirect('login');
 		}else{
+			$this->load->model('M_Mata_Pelajaran');
+			$data['nama_mapel'] = $this->M_Mata_Pelajaran->Tampilkan_Nama_MaPel($this->uri->segment(3, -1))->row();
 
 			$this->load->model('M_Tugas_Sesi_Jawaban');
 			$data['tugas_sesi_soal'] = $this->M_Tugas_Sesi_Jawaban->getByIdSesi($id_mapel, $sesi_ke)->row();
@@ -40,8 +42,8 @@ class Tugas_Sesi_Jawaban_Siswa extends CI_Controller {
     $config['upload_path']          	= './jawaban/';
     $config['allowed_types']        	= 'gif|jpg|png|pdf|doc|docx|pptx|rar|xlsx|ppt|txt';
     $config['max_size']             	= 11000; 	// batas ukuran upload file 	(0 = unlimited) satuan KB (KiloBytes)
-    $config['max_width']            	= 0;  		// batas file image 					(0 = unlimited)
-    $config['max_height']           	= 0; 			// batas file image  					(0 = unlimited)
+    $config['max_width']            	= 200;  		// batas file image 					(0 = unlimited)
+    $config['max_height']           	= 200; 			// batas file image  					(0 = unlimited)
 		$config['overwrite']							= true;
 
 		$data['id_soal'] = $id_soal;

@@ -8,9 +8,13 @@ class Sesi_Pembelajaran_Siswa extends CI_Controller {
 		if($this->session->userdata('user') != 'siswa') {
 			redirect('login');
 		}else{
+			$this->load->model('M_Mata_Pelajaran');
+			$data['nama_mapel'] = $this->M_Mata_Pelajaran->Tampilkan_Nama_MaPel($this->uri->segment(3, -1))->row();			
+
 			$this->load->model('M_Sesi_Pembelajaran');
+
 			$data['sesi_pembelajaran'] = $this->M_Sesi_Pembelajaran->getById($id_mapel)->result();
-		
+
 			if (empty($data['sesi_pembelajaran'])) {
 				$data['sesi_pembelajaran'] = -1;
 			}

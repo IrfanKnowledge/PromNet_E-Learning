@@ -69,4 +69,13 @@ public function getAll_tugas()
 
     return $this->db->get();
   }
+
+  public function Nilai_Setiap_Tes_Pengayaan_Siswa_Tertentu($id_tes = array())
+  {
+    $this->db->select('id_Tes, Nilai_Tes');
+    $this->db->from('tes_pengayaan_nilai');
+    $this->db->where_in('id_Tes', $id_tes);
+
+    return $this->db->get();
+  }
 }
