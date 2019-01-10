@@ -44,9 +44,8 @@ class M_Tes_Ketuntasan_Jawaban extends CI_Model {
 
   public function Ubah_Jawaban($jawaban = array())
   {
-    $data_2 = $this->Ubah_Key_Array($jawaban);
-
     if ($jawaban != array()) {
+      $data_2 = $this->Ubah_Key_Array($jawaban);
       $this->db->update_batch('tes_ketuntasan_jawaban', $data_2, 'id_Soal');
     }
   }
@@ -66,6 +65,7 @@ class M_Tes_Ketuntasan_Jawaban extends CI_Model {
 
     return $this->db->get();
   }
+
   public function Ubah_Nilai($data_jawaban = array(), $id_tes = -1)
   {
     //Ambil Kunci Jawaban
@@ -73,29 +73,46 @@ class M_Tes_Ketuntasan_Jawaban extends CI_Model {
 
     //Proses Membandingkan Jawaban dengan Kunci Jawaban yang menghasilkan jumlah_benar
     //..Ubah_Key_Array hanya untuk mengubah nama key $data_jawaban menjadi mudah di ingat dan sesuai Tabel
-    $jawaban = $this->Ubah_Key_Array($data_jawaban);
     $jumlah_benar = 0;
-    $i = 0;
-    foreach ($jawaban as $record) {
-      while ($record['id_Soal'] != $kunci_jawaban[$i]->id) {
+    if ($data_jawaban != array()) {   //..Aksi dilakukan jika  jawaban tidak kosong
+      $jawaban = $this->Ubah_Key_Array($data_jawaban);
+      $i = 0;
+      foreach ($jawaban as $record) {
+        while ($record['id_Soal'] != $kunci_jawaban[$i]->id) {
+          $i++;
+        }
+        if ($record['Jawaban'] == $kunci_jawaban[$i]->Kunci_Jawaban) {
+          $jumlah_benar++;
+        }
         $i++;
       }
-      if ($record['Jawaban'] == $kunci_jawaban[$i]->Kunci_Jawaban) {
-        $jumlah_benar++;
-      }
-      $i++;
+      //Hitung Perbandingan jumlah_benar dan salah yang menghasilkan nilai
+      //..count($kunci_jawaban) hanya untuk menghitung jumlah soal
+      $nilai = ( $jumlah_benar/count($kunci_jawaban) ) * 100;
+
+      // $this->session->unset_userdata('cek');
+      // $this->session->set_userdata('cek', "ada isinya");
+    } else {
+      // $this->session->unset_userdata('cek');
+      // $this->session->set_userdata('cek', "kosong");
+
+      //Karena jawaban masih kosong, kita tulis nilai = 0
+      $nilai = 0;
     }
 
-    //Hitung Perbandingan jumlah_benar dan salah yang menghasilkan nilai
-    //..count($kunci_jawaban) hanya untuk menghitung jumlah soal
-    $nilai = ( $jumlah_benar/count($kunci_jawaban) ) * 100;
+    $data = array(
+      'NIS' => $this->session->userdata('username'),
+      'id_Tes' => $id_tes,
+      'Nilai_Tes' => $nilai
+    );
+    $this->db->insert('tes_ketuntasan_nilai', $data);
 
     //Update Nilai dan Status pada Tabel Nilai
-    $this->db->set('Nilai_Tes', $nilai);
-    $this->db->set('Status', 'Complete');
-    $this->db->where('NIS', $this->session->userdata('username'));
-    $this->db->where('id_Tes', $id_tes);
-    $this->db->update('tes_ketuntasan_nilai');
+    // $this->db->set('Nilai_Tes', $nilai);
+    // $this->db->set('Status', 'Complete');
+    // $this->db->where('NIS', $this->session->userdata('username'));
+    // $this->db->where('id_Tes', $id_tes);
+    // $this->db->update('tes_ketuntasan_nilai');
   }
 
   public function Submit($jawaban = array(), $id_tes = -1)
@@ -106,5 +123,4 @@ class M_Tes_Ketuntasan_Jawaban extends CI_Model {
     $this->Ubah_Nilai($jawaban, $id_tes);
     $this->db->trans_complete();
   }
-
 }

@@ -37,10 +37,10 @@ public function getAll_tugas()
 
       if ($this->db->get()->num_rows()>5) {
         $data= $this->db->get()->result_array();
-        
+
         $nilai=0;
         foreach ($data as $NA) {
-          $nilai= $nilai + $NA['Nilai_Tes']; 
+          $nilai= $nilai + $NA['Nilai_Tes'];
         }
         $temp_nilai[] = $nilai;
       }
@@ -52,12 +52,20 @@ public function getAll_tugas()
     }
   }
 
-
-
-    function selectById($id_Tes){
+  public function selectById($id_Tes)
+  {
     $this->db->select('*');
     $this->db->from('tes_ketuntasan_nilai');
     $this->db->where('id_Tes',$id_Tes);
+
+    return $this->db->get();
+  }
+
+  public function Nilai_Setiap_Tes_Ketuntasan_Siswa_Tertentu($id_tes = array())
+  {
+    $this->db->select('id_Tes, Nilai_Tes');
+    $this->db->from('tes_ketuntasan_nilai');
+    $this->db->where_in('id_Tes', $id_tes);
 
     return $this->db->get();
   }

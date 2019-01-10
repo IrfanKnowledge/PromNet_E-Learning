@@ -44,4 +44,14 @@ class M_Tes_Ketuntasan_Waktu_Siswa extends CI_Model {
     $this->db->insert('tes_ketuntasan_waktu_siswa', $data);
   }
 
+  public function Status_Pengerjaan($id_tes = -1)
+  {
+    $this->db->select('id_Tes, Status_Pengerjaan');
+    $this->db->from('tes_ketuntasan_waktu_siswa');
+    $this->db->where('NIS', $this->session->userdata('username'));
+    $this->db->where_in('id_Tes', $id_tes);
+
+    return $this->db->get();
+  }
+
 }

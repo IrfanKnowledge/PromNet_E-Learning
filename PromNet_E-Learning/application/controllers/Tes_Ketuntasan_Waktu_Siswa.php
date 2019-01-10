@@ -18,7 +18,6 @@ class Tes_Ketuntasan_Waktu_Siswa extends CI_Controller {
 			$format_waktu = strtotime($this->M_Tes_Ketuntasan_Waktu_Siswa->Waktu_Mulai($this->input->post('id_tes'))->row()->Waktu_Mulai);
 
 			//Unix TimeStamp akan dirubah menjadi format bahasa manusia umum dan dengan susunan sebagai Berikut
-			//..Bulan, Hari, Tahun, Jam, Menit, Detik untuk menyesuaikan pada Format javascript
 			$Waktu_Mulai = strtotime( date('Y-m-d H:i:s', $format_waktu ) );
 
 			//mengambil durasi dalam format menit misal Durasi = 30 yang berarti 30 menit

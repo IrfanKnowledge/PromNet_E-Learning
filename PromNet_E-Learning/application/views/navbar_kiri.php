@@ -91,16 +91,16 @@
                                <span class="mini-click-non">Beranda</span>
                             </a>
                     </li>
-                    <li
-                      <?php if ($this->uri->segment(1)  == 'Edit_Profil') { ?>
+                    <!-- <li
+                      <?php //if ($this->uri->segment(1)  == 'Edit_Profil') { ?>
                         class="active text-white bg-dark"
-                      <?php } ?>
+                      <?php //} ?>
                     >
-                        <a href="<?php echo site_url('Home_Siswa'); ?>" class=" <?php if ($this->uri->segment(1)  == 'Edit_Profil'){ ?> text-white bg-dark <?php } ?>">
+                        <a href="<?php //echo site_url('Home_Siswa'); ?>" class=" <?php //if ($this->uri->segment(1)  == 'Edit_Profil'){ ?> text-white bg-dark <?php //} ?>">
                                <span class="educate-icon educate-student icon-wrap"></span>
                                <span class="mini-click-non">Edit Profil</span>
                             </a>
-                    </li>
+                    </li> -->
                   </ul>
                 </nav>
               <?php endif; ?>
