@@ -41,8 +41,8 @@ public function index()
   public function matpelTambah()
   {
     $data['kd_Mapel'] = $this->input->post('kd_Mapel');
-    $data['Nama_Mapel'] = $this->input->post('Nama_Mapel');   
-    $data['Jam_Pembelajaran'] = $this->input->post('Jam_Pembelajaran');   
+    $data['Nama_Mapel'] = $this->input->post('Nama_Mapel');
+    $data['Jam_Pembelajaran'] = $this->input->post('Jam_Pembelajaran');
 
       $this->load->model('M_Mata_Pelajaran');
       $status = $this->M_Mata_Pelajaran->insert($data);
@@ -54,8 +54,8 @@ public function index()
   {
       $id = $this->input->post('id');
     $data['kd_Mapel'] = $this->input->post('kd_Mapel');
-    $data['Nama_Mapel'] = $this->input->post('Nama_Mapel');   
-    $data['Jam_Pembelajaran'] = $this->input->post('Jam_Pembelajaran');   
+    $data['Nama_Mapel'] = $this->input->post('Nama_Mapel');
+    $data['Jam_Pembelajaran'] = $this->input->post('Jam_Pembelajaran');
 
       $this->load->model('M_Mata_Pelajaran');
       $status = $this->M_Mata_Pelajaran->update($id, $data);
@@ -96,7 +96,7 @@ public function index()
       $this->load->model('M_Tes_Ketuntasan');
       $data['tes_ketuntasan'] = $this->M_Tes_Ketuntasan->selectById($id)->result();
 
-      $this->load->view('V_Ketuntasan/V_ketuntasanList', $data);
+      $this->load->view('V_Ketuntasan/V_KetuntasanAdmin', $data);
     }
 
   }
@@ -108,9 +108,9 @@ public function index()
       redirect('login');
     }else{
       $this->load->model('M_Tes_Ketuntasan_Soal');
-      $data['tes_ketuntasan_soal'] = $this->M_Tes_Ketuntasan_Soal->getById($id_Tes)->result();
+      $data['tes_ketuntasan_soal'] = $this->M_Tes_Ketuntasan_Soal->getByIdTes($id_Tes)->result();
 
-      $this->load->view('V_Ketuntasan/V_ketuntasanSoal', $data);
+      $this->load->view('V_Ketuntasan/V_KetuntasanSoalAdmin', $data);
     }
 
   }
@@ -136,7 +136,7 @@ public function index()
       $this->load->model('M_Tes_Pengayaan');
       $data['tes_pengayaan'] = $this->M_Tes_Pengayaan->selectById($id)->result();
 
-      $this->load->view('V_Pengayaan/V_pengayaanList', $data);
+      $this->load->view('V_Pengayaan/V_PengayaanAdmin', $data);
     }
 
   }
@@ -148,9 +148,9 @@ public function index()
       redirect('login');
     }else{
       $this->load->model('M_Tes_Pengayaan_Soal');
-      $data['tes_pengayaan_soal'] = $this->M_Tes_Pengayaan_Soal->getById($id_Tes)->result();
+      $data['tes_pengayaan_soal'] = $this->M_Tes_Pengayaan_Soal->getByIdTes($id_Tes)->result();
 
-      $this->load->view('V_Pengayaan/V_pengayaanSoal', $data);
+      $this->load->view('V_Pengayaan/V_PengayaanSoalAdmin', $data);
     }
 
   }
@@ -168,4 +168,25 @@ public function index()
 
   }
 
+  public function Tugas($id)
+  {
+      if($this->session->userdata('user') != 'admin') {
+      redirect('login');
+    }else{
+      $this->load->model('M_Tugas');
+      $data['tugas_sesi_soal'] = $this->M_Tugas->selectById($id)->result();
+
+      $this->load->view('V_TugasAdmin', $data);
+    }
+
+  }
+
+  public function Download($nama = '')
+ {
+   if($this->session->userdata('user') != 'admin') {
+     redirect('login');
+   }else{
+     force_download('content/' . $nama, NULL);
+   }
+ }
 }

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 10, 2019 at 01:33 PM
+-- Generation Time: Jan 17, 2019 at 03:51 AM
 -- Server version: 10.1.37-MariaDB
 -- PHP Version: 7.2.12
 
@@ -21,6 +21,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `promnet_e-learning`
 --
+CREATE DATABASE IF NOT EXISTS `promnet_e-learning` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `promnet_e-learning`;
 
 -- --------------------------------------------------------
 
@@ -132,7 +134,7 @@ CREATE TABLE IF NOT EXISTS `sesi_pembelajaran` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `Sesi_Ke` (`Sesi_Ke`),
   KEY `fk_sesi_pembelajaran_id_mapel` (`id_mapel`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 
 --
 -- RELATIONSHIPS FOR TABLE `sesi_pembelajaran`:
@@ -145,12 +147,13 @@ CREATE TABLE IF NOT EXISTS `sesi_pembelajaran` (
 --
 
 INSERT INTO `sesi_pembelajaran` (`id`, `id_mapel`, `Sesi_Ke`, `Topik`, `Uraian`, `Konten1`, `Konten2`, `Konten3`) VALUES
-(1, 'MPK01', 1, 'Profesi dalam Pengembangan Aplikasi Web', '\"Mengenalkan Profesi dalam bidang IT dan dalam\r\nPengembangan Aplikasi Web', 'Topik_1_Pemrograman_Web.pptx', NULL, NULL),
-(2, 'MPK01', 2, 'Alur dan Perangkat Pengembangan Aplikasi Web', '\"Mengenalkan Alur Pengembangan Aplikasi Web dan\r\nMenyajikan Perangkat Pengembangan Aplikasi Web', 'Topik_2_Pemrograman_Web.pptx', NULL, NULL),
-(3, 'MPK01', 3, 'Menyajikan Format Teks dalam Dokumen Web', '\"Mengenalkan Dasar-dasa HTML, Properti Dokumen Web,\r\ndan Cara Menyajikan Teks dalam Format tertentu pada \r\nHalaman Dokumen', 'Topik_3_Pemrograman_Web.pptx', NULL, NULL),
-(4, 'MPK01', 4, 'Menyajikan Pemformatan Teks dan Paragraf Web', '\"Mengenalkan Pemformatan Teks, Pemformatan Paragraf Web,\r\ndan Cara Menyajikan Pemformatan Paragraf pada Halaman Web\"\r\n', 'Topik_4_Pemrograman_Web.pptx', NULL, NULL),
-(5, 'MPK01', 5, 'Menyajikan Hasil Pembuatan List Minimal', '\"Mengenalkan Pembuatan List Minimal dan Cara Menyajikan\r\nPembuatan List Minimal\"\r\n', 'Topik_5_Pemrograman_Web.pptx', NULL, NULL),
-(6, 'MPK01', 6, 'Menyajikan Pembuatan List Kombinasi', '\"Mengenalkan Pembuatan List Kombinasi, dan Cara Menyajikan\r\nPembuatan List\"\r\n', 'Topik_6_Pemrograman_Web.pptx', NULL, NULL);
+(1, 'MPK01', 1, 'Profesi dalam Pengembangan Aplikasi Web', 'Mengenalkan Profesi dalam bidang IT dan dalam\r\nPengembangan Aplikasi Web', 'Topik_1_Pemrograman_Web.pptx', NULL, NULL),
+(2, 'MPK01', 2, 'Alur dan Perangkat Pengembangan Aplikasi Web', 'Mengenalkan Alur Pengembangan Aplikasi Web dan\r\nMenyajikan Perangkat Pengembangan Aplikasi Web', 'Topik_2_Pemrograman_Web.pptx', NULL, NULL),
+(3, 'MPK01', 3, 'Menyajikan Format Teks dalam Dokumen Web', 'Mengenalkan Dasar-dasa HTML, Properti Dokumen Web,\r\ndan Cara Menyajikan Teks dalam Format tertentu pada \r\nHalaman Dokumen \"', 'Topik_3_Pemrograman_Web.pptx', NULL, NULL),
+(4, 'MPK01', 4, 'Menyajikan Pemformatan Teks dan Paragraf Web', 'Mengenalkan Pemformatan Teks, Pemformatan Paragraf Web,\r\ndan Cara Menyajikan Pemformatan Paragraf pada Halaman Web\"\r\n', 'Topik_4_Pemrograman_Web.pptx', NULL, NULL),
+(5, 'MPK01', 5, 'Menyajikan Hasil Pembuatan List Minimal', 'Mengenalkan Pembuatan List Minimal dan Cara Menyajikan\r\nPembuatan List Minimal\"\r\n', 'Topik_5_Pemrograman_Web.pptx', NULL, NULL),
+(6, 'MPK01', 6, 'Menyajikan Pembuatan List Kombinasi', 'Mengenalkan Pembuatan List Kombinasi, dan Cara Menyajikan\r\nPembuatan List\"\r\n', 'Topik_6_Pemrograman_Web.pptx', NULL, NULL),
+(7, 'MPU01', 0, 'Hello World', '------------------------', '03 - Transaksi.ppt', 'Rasyid_Uncommited Dependency Problem.docx', NULL);
 
 -- --------------------------------------------------------
 
@@ -213,12 +216,12 @@ CREATE TABLE IF NOT EXISTS `tes_ketuntasan` (
 --
 
 INSERT INTO `tes_ketuntasan` (`id`, `id_Sesi`, `Judul`, `Durasi`, `Uraian`, `Waktu_Mulai_tes`, `Waktu_Berakhir_tes`) VALUES
-(1, 1, '\"Profesi dalam  Pengembangan Aplikasi Web\"', 30, '\"Pilihlah jawaban Benar atau Salah \r\npada Soal dalam Tes Pengayaan Ini\"\r\n', '2019-01-01 00:00:00', '2019-02-20 00:00:00'),
-(2, 2, '\"Alur dan Perangkat Pengembangan  Aplikasi Web\"', 30, '\"Pilihlah jawaban Benar atau Salah \r\npada Soal dalam Tes Pengayaan Ini\"\r\n', '2019-02-02 00:00:00', '2019-02-03 00:00:00'),
-(3, 3, '\"Menyajikan Format Teks  dalam Dokumen Web\"', 30, '\"Pilihlah jawaban Benar atau Salah \r\npada Soal dalam Tes Pengayaan Ini\"', '2018-12-01 00:00:00', '2018-12-02 00:00:00'),
-(4, 4, '\"Menyajikan Pemformatan  Teks dan Paragraf Web\"', 30, '\"Pilihlah jawaban Benar atau Salah \r\npada Soal dalam Tes Pengayaan Ini\"', '2018-11-13 00:00:00', '2018-11-17 00:00:00'),
-(5, 5, '\"Menyajikan Hasil Pembuatan  List Minimal\"', 30, '\"Pilihlah jawaban Benar atau Salah \r\npada Soal dalam Tes Pengayaan Ini\"\r\n', '2018-11-13 00:00:00', '2018-11-17 00:00:00'),
-(6, 6, '\"Menyajikan Pembuatan  List Kombinasi\"', 30, '\"Pilihlah jawaban Benar atau Salah \r\npada Soal dalam Tes Pengayaan Ini\"\r\n', '2018-11-13 00:00:00', '2018-11-17 00:00:00');
+(1, 1, 'Profesi dalam  Pengembangan Aplikasi Web', 30, 'Pilihlah jawaban Benar atau Salah \r\npada Soal dalam Tes Pengayaan Ini', '2019-01-01 00:00:00', '2019-02-20 00:00:00'),
+(2, 2, 'Alur dan Perangkat Pengembangan  Aplikasi Web', 30, '\"Pilihlah jawaban Benar atau Salah \r\npada Soal dalam Tes Pengayaan Ini\"\r\n', '2019-02-02 00:00:00', '2019-02-03 00:00:00'),
+(3, 3, 'Menyajikan Format Teks  dalam Dokumen Web', 30, '\"Pilihlah jawaban Benar atau Salah \r\npada Soal dalam Tes Pengayaan Ini\"', '2018-12-01 00:00:00', '2018-12-02 00:00:00'),
+(4, 4, 'Menyajikan Pemformatan  Teks dan Paragraf Web', 30, '\"Pilihlah jawaban Benar atau Salah \r\npada Soal dalam Tes Pengayaan Ini\"', '2018-11-13 00:00:00', '2018-11-17 00:00:00'),
+(5, 5, 'Menyajikan Hasil Pembuatan  List Minimal', 30, '\"Pilihlah jawaban Benar atau Salah \r\npada Soal dalam Tes Pengayaan Ini\"\r\n', '2018-11-13 00:00:00', '2018-11-17 00:00:00'),
+(6, 6, 'Menyajikan Pembuatan  List Kombinasi', 30, '\"Pilihlah jawaban Benar atau Salah \r\npada Soal dalam Tes Pengayaan Ini\"\r\n', '2018-11-13 00:00:00', '2018-11-17 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -236,7 +239,7 @@ CREATE TABLE IF NOT EXISTS `tes_ketuntasan_jawaban` (
   PRIMARY KEY (`id`),
   KEY `fk_tes_ketuntasan_jawaban_nis` (`NIS`),
   KEY `fk_tes_ketuntasan_jawaban_id_soal` (`id_Soal`)
-) ENGINE=InnoDB AUTO_INCREMENT=61 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=71 DEFAULT CHARSET=latin1;
 
 --
 -- RELATIONSHIPS FOR TABLE `tes_ketuntasan_jawaban`:
@@ -251,11 +254,11 @@ CREATE TABLE IF NOT EXISTS `tes_ketuntasan_jawaban` (
 --
 
 INSERT INTO `tes_ketuntasan_jawaban` (`id`, `NIS`, `id_Soal`, `Jawaban`) VALUES
-(56, '20191111', 1, 'Benar'),
-(57, '20191111', 2, 'Benar'),
-(58, '20191111', 3, 'Benar'),
-(59, '20191111', 4, 'Benar'),
-(60, '20191111', 5, 'Salah');
+(66, '20191111', 1, 'Benar'),
+(67, '20191111', 2, 'Benar'),
+(68, '20191111', 3, 'Benar'),
+(69, '20191111', 4, 'Benar'),
+(70, '20191111', 5, 'Salah');
 
 -- --------------------------------------------------------
 
@@ -273,7 +276,7 @@ CREATE TABLE IF NOT EXISTS `tes_ketuntasan_nilai` (
   PRIMARY KEY (`id`),
   KEY `fk_tes_ketuntasan_nilai_nis` (`NIS`),
   KEY `fk_tes_ketuntasan_nilai_id_tes` (`id_Tes`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 
 --
 -- RELATIONSHIPS FOR TABLE `tes_ketuntasan_nilai`:
@@ -288,8 +291,7 @@ CREATE TABLE IF NOT EXISTS `tes_ketuntasan_nilai` (
 --
 
 INSERT INTO `tes_ketuntasan_nilai` (`id`, `NIS`, `id_Tes`, `Nilai_Tes`) VALUES
-(6, '20191111', 1, 40),
-(7, '20191111', 1, 40);
+(9, '20191111', 1, 40);
 
 -- --------------------------------------------------------
 
@@ -325,10 +327,10 @@ CREATE TABLE IF NOT EXISTS `tes_ketuntasan_soal` (
 
 INSERT INTO `tes_ketuntasan_soal` (`id`, `id_Tes`, `No_Soal`, `Pertanyaan`, `pilihan1`, `pilihan2`, `pilihan3`, `pilihan4`, `Kunci_Jawaban`) VALUES
 (1, 1, 1, 'Web Programmer adalah orang yang bertugas melakukan pencodingan sebuah website agar dinamis', 'Benar', 'Salah', NULL, NULL, 'Benar'),
-(2, 1, 2, '\"Web Developer merupakan salah satu profesi dalam\r\n pengembangan aplikasi berbasis web\"\r\n', 'Benar', 'Salah', NULL, NULL, 'Salah\r\n'),
+(2, 1, 2, 'Web Developer merupakan salah satu profesi dalam\r\n pengembangan aplikasi berbasis web\r\n', 'Benar', 'Salah', NULL, NULL, 'Salah\r\n'),
 (3, 1, 3, 'Web Administrator adalah orang yang bertanggung jawab dalam menentukan tampilan sebuah website \r\n', 'Benar', 'Salah', NULL, NULL, 'Salah'),
 (4, 1, 4, 'Pekerjaan di bidang IT dikelompokkan sesuai bidangnya, yang pertama mereka yang bergelut di dunia perangka lunak, yang kedua mereka yang bergelut di perangkat keras dan yang ketiga mereka yang berkecimpung dalam operasional system informasi\r\n', 'Benar', 'Salah', NULL, NULL, 'Benar'),
-(5, 1, 5, '\"Yang bisa dikatakan sebagai sebuah profesi yaitu jika \r\nseseorang sudah ahli di dalam bidang pekerjaan tersebut. \"\r\n', 'Benar', 'Salah', NULL, NULL, 'Benar');
+(5, 1, 5, 'Yang bisa dikatakan sebagai sebuah profesi yaitu jika \r\nseseorang sudah ahli di dalam bidang pekerjaan tersebut. ', 'Benar', 'Salah', NULL, NULL, 'Benar');
 
 -- --------------------------------------------------------
 
@@ -346,7 +348,7 @@ CREATE TABLE IF NOT EXISTS `tes_ketuntasan_waktu_siswa` (
   `Status_Pengerjaan` enum('Belum Selesai','Sudah Selesai') NOT NULL DEFAULT 'Belum Selesai',
   PRIMARY KEY (`id`),
   KEY `fk_tes_ketuntasan_waktu_siswa_id_sesi` (`id_Tes`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=latin1;
 
 --
 -- RELATIONSHIPS FOR TABLE `tes_ketuntasan_waktu_siswa`:
@@ -359,7 +361,7 @@ CREATE TABLE IF NOT EXISTS `tes_ketuntasan_waktu_siswa` (
 --
 
 INSERT INTO `tes_ketuntasan_waktu_siswa` (`id`, `NIS`, `id_Tes`, `Waktu_Mulai`, `Status_Pengerjaan`) VALUES
-(19, '20191111', 1, '2019-01-10 15:13:24', 'Sudah Selesai');
+(21, '20191111', 1, '2019-01-15 16:23:50', 'Sudah Selesai');
 
 -- --------------------------------------------------------
 
@@ -392,12 +394,12 @@ CREATE TABLE IF NOT EXISTS `tes_pengayaan` (
 --
 
 INSERT INTO `tes_pengayaan` (`id`, `id_Sesi`, `Judul`, `Durasi`, `Uraian`, `Waktu_Mulai_tes`, `Waktu_Berakhir_tes`) VALUES
-(1, 1, '\"Profesi dalam Pengembangan Aplikasi Web\"', 30, '\"Pilihlah jawaban Benar atau Salah pada Soal dalam Tes Pengayaan ini\"', '2019-01-01 01:00:00', '2019-02-20 23:00:00'),
-(3, 2, '\"Alur dan Perangkat Pengembangan  Aplikasi Web\"', 30, '\"Pilihlah jawaban Benar atau Salah \r\npada Soal dalam Tes Pengayaan Ini\"\r\n', '2018-11-28 16:00:00', '2018-11-28 21:00:00'),
-(4, 3, '\"Menyajikan Format Teks  dalam Dokumen Web\"', 30, '\"Pilihlah jawaban Benar atau Salah \r\npada Soal dalam Tes Pengayaan Ini\"', '2018-11-29 05:00:00', '2018-11-30 18:00:00'),
-(5, 4, '\"Menyajikan Pemformatan  Teks dan Paragraf Web\"', 30, '\"Pilihlah jawaban Benar atau Salah \r\npada Soal dalam Tes Pengayaan Ini\"', '2018-11-29 06:00:00', '2018-11-30 22:00:00'),
-(6, 5, '\"Menyajikan Hasil Pembuatan  List Minimal\"', 30, '\"Pilihlah jawaban Benar atau Salah \r\npada Soal dalam Tes Pengayaan Ini\"\r\n', '2018-11-29 03:00:00', '2018-11-30 23:00:00'),
-(7, 6, '\"Menyajikan Pembuatan  List Kombinasi\"', 30, '\"Pilihlah jawaban Benar atau Salah \r\npada Soal dalam Tes Pengayaan Ini\"\r\n', '2018-11-28 17:00:00', '2018-11-30 23:00:00');
+(1, 1, 'Profesi dalam Pengembangan Aplikasi Web', 30, '\"Pilihlah jawaban Benar atau Salah pada Soal dalam Tes Pengayaan ini\"', '2019-01-01 01:00:00', '2019-02-20 23:00:00'),
+(3, 2, 'Alur dan Perangkat Pengembangan  Aplikasi Web', 30, '\"Pilihlah jawaban Benar atau Salah \r\npada Soal dalam Tes Pengayaan Ini\"\r\n', '2018-11-28 16:00:00', '2018-11-28 21:00:00'),
+(4, 3, 'Menyajikan Format Teks  dalam Dokumen Web', 30, '\"Pilihlah jawaban Benar atau Salah \r\npada Soal dalam Tes Pengayaan Ini\"', '2018-11-29 05:00:00', '2018-11-30 18:00:00'),
+(5, 4, 'Menyajikan Pemformatan  Teks dan Paragraf Web', 30, '\"Pilihlah jawaban Benar atau Salah \r\npada Soal dalam Tes Pengayaan Ini\"', '2018-11-29 06:00:00', '2018-11-30 22:00:00'),
+(6, 5, 'Menyajikan Hasil Pembuatan  List Minimal', 30, '\"Pilihlah jawaban Benar atau Salah \r\npada Soal dalam Tes Pengayaan Ini\"\r\n', '2018-11-29 03:00:00', '2018-11-30 23:00:00'),
+(7, 6, 'Menyajikan Pembuatan  List Kombinasi', 30, '\"Pilihlah jawaban Benar atau Salah \r\npada Soal dalam Tes Pengayaan Ini\"\r\n', '2018-11-28 17:00:00', '2018-11-30 23:00:00');
 
 -- --------------------------------------------------------
 
@@ -507,7 +509,7 @@ INSERT INTO `tes_pengayaan_soal` (`id`, `id_Tes`, `No_Soal`, `Pertanyaan`, `pili
 (2, 1, 2, 'Web Developer merupakan salah satu profesi dalam\r\n pengembangan aplikasi berbasis web', 'Benar', 'Salah', '', '', 'Salah'),
 (3, 1, 3, 'Web Administrator adalah orang yang bertanggung jawab dalam menentukan tampilan sebuah website \r\n', 'Benar', 'Salah', '', '', 'Benar'),
 (4, 1, 4, 'Pekerjaan di bidang IT dikelompokkan sesuai bidangnya, yang pertama mereka yang bergelut di dunia perangka lunak, yang kedua mereka yang bergelut di perangkat keras dan yang ketiga mereka yang berkecimpung dalam operasional system informasi\r\n', 'Benar', 'Salah', '', '', 'Benar'),
-(5, 1, 5, '\"Yang bisa dikatakan sebagai sebuah profesi yaitu jika \r\nseseorang sudah ahli di dalam bidang pekerjaan tersebut. \"\r\n', 'Benar', 'Salah', '', '', 'Salah');
+(5, 1, 5, 'Yang bisa dikatakan sebagai sebuah profesi yaitu jika \r\nseseorang sudah ahli di dalam bidang pekerjaan tersebut.', 'Benar', 'Salah', '', '', 'Salah');
 
 -- --------------------------------------------------------
 
@@ -580,7 +582,7 @@ CREATE TABLE IF NOT EXISTS `tugas_sesi_jawaban` (
 
 INSERT INTO `tugas_sesi_jawaban` (`id`, `nis`, `id_soal`, `berkas_jawaban`, `komentar_siswa`, `komentar_guru`, `waktu_pengumpulan`, `status_pengumpulan`, `nilai_tugas`) VALUES
 (17, '20191111', 1, 'TGS_1_MPK01_20191111.ppt', 'Integritas Data PPT Percobaan 1', NULL, '2018-12-10 15:17:24', 'Terlambat', NULL),
-(18, '20191111', 2, 'TGS_2_MPK01_20191111.docx', 'stored procedure ppt percobaan 2', NULL, '2019-01-10 19:00:15', 'Tepat Waktu', NULL),
+(18, '20191111', 2, 'TGS_2_MPK01_20191111.pdf', 'xml rendah', NULL, '2019-01-15 16:23:00', 'Tepat Waktu', NULL),
 (19, '20191111', 4, 'TGS_4_MPK01_20191111.txt', 'tugas simbada txt percobaan 4', NULL, '2018-12-10 15:28:03', 'Terlambat', NULL);
 
 -- --------------------------------------------------------

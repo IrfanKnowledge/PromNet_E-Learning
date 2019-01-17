@@ -54,7 +54,7 @@
                                     </div>
                                     <div class="form-group">
                                       <label>Jam Pembelajaran:</label>
-                                      <input type="password" name="Jam_Pembelajaran" class="form-control" id="password">
+                                      <input name="Jam_Pembelajaran" class="form-control" id="password">
                                     </div>
                                     <p class="text-warning"><small>This action cannot be undone.</small></p>
                       					</div>

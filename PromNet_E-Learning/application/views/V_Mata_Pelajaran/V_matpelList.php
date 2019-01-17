@@ -48,7 +48,7 @@
                             <td><?php echo $column->Jam_Pembelajaran; ?></td>
                              <th>
                                 <a href="<?php echo site_url('C_matpel/sesi/'.($column->kd_Mapel)); ?>">SESI</a>
-                            </th>                                                  
+                            </th>
                           </tr>
                         <?php
                           $no++;

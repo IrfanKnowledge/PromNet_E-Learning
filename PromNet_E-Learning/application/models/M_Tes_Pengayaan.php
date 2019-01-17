@@ -9,7 +9,7 @@ class M_Tes_Pengayaan extends CI_Model {
     return  $this->db->get();
   }
 
-  /*
+  
   public function selectById($id)
   {
 		$this->db->select('*');
@@ -18,7 +18,7 @@ class M_Tes_Pengayaan extends CI_Model {
 
 		return $this->db->get();
 	 }
-   */
+
 
    public function getById($id_mapel = -1)
    {

@@ -48,7 +48,7 @@
                                       <th scope="row"><?php echo $no; ?></th>
                                       <td style="font-family: georgia;"><?php echo $column->id; ?></td>
                                       <td style="font-family: verdana;"><?php echo $column->kd_Mapel; ?></td>
-                                      <td style="font-family: verdana;"><a href="<?php echo site_url('Sesi_Pembelajaran_Siswa/index/'. $column->kd_Mapel); ?>" class="text-danger"><?php echo $column->Nama_Mapel; ?></a></td>
+                                      <td style="font-family: verdana;"><a href="<?php echo site_url('Sesi_Pembelajaran/index/'. $column->kd_Mapel); ?>" class="text-danger"><?php echo $column->Nama_Mapel; ?></a></td>
                                       <td style="font-family: verdana;"><?php echo $column->Jam_Pembelajaran; ?></td>
                                     </tr>
                               <?php

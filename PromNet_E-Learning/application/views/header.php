@@ -42,7 +42,7 @@
             </div>
         </div>
       </div>
-      <?php if ($this->uri->segment(1) == "Sesi_Pembelajaran_Siswa" || $this->uri->segment(1) == "Tugas_Sesi_Soal_Siswa" || $this->uri->segment(1) == "Tes_Ketuntasan_Siswa"  || $this->uri->segment(1) == "Tes_Ketuntasan_Soal_Siswa" || $this->uri->segment(1) == "Tugas_Sesi_Jawaban_Siswa"
+      <?php if ($this->uri->segment(1) == "Sesi_Pembelajaran" || $this->uri->segment(1) == "Tugas_Sesi_Soal_Siswa" || $this->uri->segment(1) == "Tes_Ketuntasan_Siswa"  || $this->uri->segment(1) == "Tes_Ketuntasan_Soal_Siswa" || $this->uri->segment(1) == "Tugas_Sesi_Jawaban_Siswa"
       || $this->uri->segment(1) == "Tes_Pengayaan_Siswa" || $this->uri->segment(1) == "Tes_Pengayaan_Soal_Siswa")  : ?>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -50,8 +50,8 @@
           </button>
           <div class="collapse navbar-collapse navbar-expand" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-              <li <?php if($this->uri->segment(1) == "Sesi_Pembelajaran_Siswa"){ ?> class="nav-item active" <?php }else{ ?> class="nav-item" <?php } ?>>
-                <a class="nav-link" href=<?php echo site_url('Sesi_Pembelajaran_Siswa/index/'. $this->uri->segment(3)); ?> >Sesi Pembelajaran<span class="sr-only">(current)</span></a>
+              <li <?php if($this->uri->segment(1) == "Sesi_Pembelajaran"){ ?> class="nav-item active" <?php }else{ ?> class="nav-item" <?php } ?>>
+                <a class="nav-link" href=<?php echo site_url('Sesi_Pembelajaran/index/'. $this->uri->segment(3)); ?> >Sesi Pembelajaran<span class="sr-only">(current)</span></a>
               </li>
               <li <?php if($this->uri->segment(1) == "Tugas_Sesi_Soal_Siswa"){ ?> class="nav-item active" <?php }else{ ?> class="nav-item" <?php } ?>>
                 <a class="nav-link" href="<?php echo site_url('Tugas_Sesi_Soal_Siswa/index/'. $this->uri->segment(3)) ?>">Tugas</a>

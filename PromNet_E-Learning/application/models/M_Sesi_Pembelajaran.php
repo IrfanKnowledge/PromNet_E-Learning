@@ -32,4 +32,44 @@ class M_Sesi_Pembelajaran extends CI_Model {
 
     return $this->db->get();
   }
+
+  // ================================================
+     public function insert($data = array())
+    {
+      $this->db->insert('sesi_pembelajaran', $data);
+
+      $error = $this->db->error();
+      if ($error['message'] == '') {
+        return 1;
+      }else{
+        return 0;
+      }
+    }
+
+    public function update($id= -1, $data = array())
+  {
+      $this->db->set($data);
+      $this->db->where('id',$id);
+      $this->db->update('sesi_pembelajaran');
+
+      $error = $this->db->error();
+      if ($error['message'] == '') {
+        return 1;
+      }else{
+        return 0;
+      }
+    }
+
+    public function delete($id= -1)
+    {
+      $this->db->where('id',$id);
+      $this->db->delete('sesi_pembelajaran');
+
+      $error = $this->db->error();
+      if ($error['message'] == '') {
+        return 1;
+      }else{
+        return 0;
+      }
+    }
 }

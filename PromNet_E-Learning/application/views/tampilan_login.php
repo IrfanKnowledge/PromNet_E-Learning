@@ -27,7 +27,7 @@
                             <div class="form-group">
                                 <label class="control-label" for="password">Password</label>
                                 <input type="password" title="Please enter your password" placeholder="1234" required="" value="" name="password" id="password" class="form-control">
-                                <span class="help-block small">Yur strong password</span>
+                                <span class="help-block small">Your strong password</span>
 
                             </div>
                             <button class="btn btn-success btn-block loginbtn">Login</button>

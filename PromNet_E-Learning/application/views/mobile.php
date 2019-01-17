@@ -6,7 +6,11 @@
                 <div class="mobile-menu">
                     <nav id="dropdown">
                         <ul class="mobile-menu-nav">
-                            <li><a data-toggle="collapse" data-target="#Charts" href="#">Home</a>
+                            <?php if ($this->session->userdata('user') == 'admin'): ?>
+                              <li><a data-toggle="collapse" data-target="#Charts" href="<?php echo site_url('home');?>">Home</a>
+                            <?php elseif($this->session->userdata('user') == 'siswa'): ?>
+                              <li><a data-toggle="collapse" data-target="#Charts" href="<?php echo site_url('Home_Siswa');?>">Home</a>
+                            <?php endif; ?>
                             </li>
                             <!--
                             <li><a data-toggle="collapse" data-target="#demoevent" href="#">Professors <span class="admin-project-icon edu-icon edu-down-arrow"></span></a>
@@ -48,14 +52,14 @@
                                 </ul>
                             </li>
                             -->
-                            <li><a data-toggle="collapse" data-target="#demodepart" href="#">Versi <span class="admin-project-icon edu-icon edu-down-arrow"></span></a>
+                            <!-- <li><a data-toggle="collapse" data-target="#demodepart" href="#">Versi <span class="admin-project-icon edu-icon edu-down-arrow"></span></a>
                                 <ul id="demodepart" class="collapse dropdown-header-top">
-                                    <li><a href="<?php echo site_url('home/V_Versi_1') ?>">Versi 1</a>
+                                    <li><a href="<?php //echo site_url('home/V_Versi_1') ?>">Versi 1</a>
                                     </li>
-                                    <li><a href="<?php echo site_url('home/V_Versi_2') ?>">Versi 2</a>
+                                    <li><a href="<?php //echo site_url('home/V_Versi_2') ?>">Versi 2</a>
                                     </li>
                                 </ul>
-                            </li>
+                            </li> -->
 
                         </ul>
                     </nav>

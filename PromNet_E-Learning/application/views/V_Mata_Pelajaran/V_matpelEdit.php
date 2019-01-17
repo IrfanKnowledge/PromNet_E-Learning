@@ -59,7 +59,7 @@
                                 data-id="<?php echo $column->id; ?>"
                                 data-kd_mapel="<?php echo $column->kd_Mapel; ?>"
                                 data-nama_mapel="<?php echo $column->Nama_Mapel; ?>"
-                                data-jam_pembelajaran="<?php echo $column->Jam_Pembelajaran; ?>""
+                                data-jam_pembelajaran="<?php echo $column->Jam_Pembelajaran; ?>"
                               >
                                 Delete
                               </a>
@@ -137,7 +137,7 @@
             <h3 class="text-danger" align="center">Apakah Anda yakin akan menghapus data berikut?</h3>
 
             <input type="hidden" name="no" class="form-control" id="no" required>
-            <input type="hidden" name="id" class="form-control" id="id" required>
+            <input type="hidden" name="id" class="form-control" id="id_2" required>
             <div class="form-group">
               <label>Kode Matpel:</label>
               <input type="txt" name="kd_Mapel" class="form-control" id="kd_Mapel" required>
@@ -184,11 +184,17 @@
         var Nama_Mapel = $(this).data('nama_mapel');
         var Jam_Pembelajaran = $(this).data('jam_pembelajaran');
 
+        // console.log(no);
+        // console.log(id);
+        // console.log(kd_Mapel);
+        // console.log(Nama_Mapel);
+        // console.log(Jam_Pembelajaran);
+
         $(".modal-body #no").val(no);
-        $(".modal-body #id").val(id);
-        $(".modal-body #kd_Mapel").val(kd_mapel);
-        $(".modal-body #Nama_Mapel").val(nama_mapel);
-        $(".modal-body #Jam_Pembelajaran").val(jam_pembelajaran);
+        $(".modal-body #id_2").val(id);
+        $(".modal-body #kd_Mapel").val(kd_Mapel);
+        $(".modal-body #Nama_Mapel").val(Nama_Mapel);
+        $(".modal-body #Jam_Pembelajaran").val(Jam_Pembelajaran);
     })
   </script>
 </body>

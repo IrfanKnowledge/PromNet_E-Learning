@@ -10,6 +10,17 @@ class M_Tes_Pengayaan_Soal extends CI_Model {
     return  $this->db->get();
   }
 
+  public function selectById($id)
+  {
+    $this->db->select('*');
+    $this->db->from('tes_pengayaan');
+    $this->db->where('id',$id);
+
+    return $this->db->get();
+   }
+
+   //================================================================================================
+
   //Berikut fungsi yang mengambil ID di Tabel Sesi_Pembelajaran
   //..berdasarkan Kd_Mapel dan Sesi_Ke Sekian yang di input oleh User Melalui URL
   //..Yang akan digunakan sebagai acuan di Tabel Tes_Pengayaan

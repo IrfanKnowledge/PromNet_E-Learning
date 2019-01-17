@@ -9,16 +9,14 @@ class M_Tes_Ketuntasan extends CI_Model {
     return  $this->db->get();
   }
 
-  /*
   public function selectById($id)
   {
-		$this->db->select('*');
-		$this->db->from('tes_ketuntasan');
-		$this->db->where('id',$id);
+    $this->db->select('*');
+    $this->db->from('tes_ketuntasan');
+    $this->db->where('id',$id);
 
-		return $this->db->get();
-	 }
-   */
+    return $this->db->get();
+   }
 
    public function getById($id_mapel = -1)
    {

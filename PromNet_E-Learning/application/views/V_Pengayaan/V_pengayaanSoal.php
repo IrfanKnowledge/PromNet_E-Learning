@@ -54,7 +54,7 @@
                             <td><?php echo $column->pilihan2; ?></td>
                             <td><?php echo $column->pilihan3; ?></td>
                             <td><?php echo $column->pilihan4; ?></td>
-                            <td><?php echo $column->Kunci_Jawaban; ?></td> 
+                            <td><?php echo $column->Kunci_Jawaban; ?></td>
                              <td>
                               <a id="edit" href="#editdata" class="edit" data-toggle="modal"
                                 data-id="<?php echo $column->id; ?>"
@@ -81,8 +81,8 @@
                               >
                                 Delete
                               </a>
-                            </td>  
-             
+                            </td>
+
                           </tr>
                         <?php
                           $no++;

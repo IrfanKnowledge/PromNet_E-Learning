@@ -58,7 +58,7 @@
                             <th>
                                 <a href="<?php echo site_url('C_matpel/nilai_pengayaan/'.($column->id_Sesi)); ?>">Nilai</a>
                             </th>
->                                                        
+>
                           </tr>
                         <?php
                           $no++;
